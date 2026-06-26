@@ -25,27 +25,113 @@ a{color:var(--accent);text-decoration:none;}
 .screen.active{display:flex;}
 
 /* ═══════════ LANDING ═══════════ */
-#s-land{align-items:center;justify-content:center;flex-direction:column;overflow-y:auto;padding:24px;}
-.land-logo{display:flex;align-items:center;gap:10px;position:absolute;top:24px;left:28px;}
+#s-land{align-items:stretch;justify-content:flex-start;flex-direction:column;overflow-y:auto;padding:0;background:
+  radial-gradient(ellipse 900px 600px at 15% 90%, rgba(255,122,48,.05), transparent),
+  radial-gradient(ellipse 700px 500px at 88% 15%, rgba(167,139,250,.06), transparent),
+  var(--bg);}
+.land-topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;flex-shrink:0;}
+.land-logo{display:flex;align-items:center;gap:10px;}
 .logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(155deg,var(--accent),var(--accent-2));position:relative;flex-shrink:0;}
 .logo-mark::after{content:"";position:absolute;inset:9px;border-radius:4px;background:var(--bg);}
 .logo-text h1{font-size:19px;font-weight:700;}
 .logo-text p{font-size:11px;color:var(--text-faint);}
-.lib-status{position:absolute;top:28px;right:28px;font-size:12px;color:var(--text-faint);display:flex;align-items:center;gap:6px;}
+.land-topbar-right{display:flex;align-items:center;gap:14px;}
+.lib-status{font-size:12.5px;color:var(--text-dim);display:flex;align-items:center;gap:7px;}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--text-faint);flex-shrink:0;}
 .dot.ok{background:var(--good);} .dot.bad{background:var(--danger);} .dot.pulse{animation:blink 1.3s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.lang-pick{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:24px;border:1px solid var(--border);background:var(--panel-2);font-size:13px;color:var(--text-dim);cursor:pointer;transition:border-color .15s;}
+.lang-pick:hover{border-color:var(--text-faint);}
+.lang-pick svg{width:15px;height:15px;}
+.lang-pick .chev{width:11px;height:11px;margin-left:2px;}
 
-.land-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:30px;width:100%;max-width:440px;}
+.land-hero{flex:1;display:grid;grid-template-columns:1fr minmax(440px,520px) 1fr;gap:36px;align-items:center;padding:24px 32px 48px;max-width:1500px;margin:0 auto;width:100%;}
+.land-pitch{padding-right:8px;}
+.land-pitch h1{font-size:38px;font-weight:800;letter-spacing:-.02em;line-height:1.18;margin-bottom:16px;}
+.land-pitch h1 .hl{color:var(--accent);}
+.land-pitch .lede{font-size:14.5px;color:var(--text-dim);line-height:1.65;margin-bottom:30px;max-width:340px;}
+.feat-list{display:flex;flex-direction:column;gap:18px;}
+.feat-item{display:flex;align-items:flex-start;gap:13px;}
+.feat-ic{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.feat-ic svg{width:17px;height:17px;}
+.feat-txt b{font-size:13.5px;font-weight:700;display:block;margin-bottom:2px;}
+.feat-txt span{font-size:12px;color:var(--text-faint);}
+
+.land-card{background:rgba(22,24,28,.92);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:18px;padding:28px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.35);}
+.land-badge-row{display:flex;justify-content:center;margin-bottom:18px;}
+.land-pill-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;border:1px solid var(--accent);background:var(--accent-dim);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.03em;}
+.land-pill-badge svg{width:12px;height:12px;}
+.land-card h2{font-size:25px;font-weight:800;text-align:center;letter-spacing:-.02em;line-height:1.2;margin-bottom:9px;}
+.land-card h2 .hl{color:var(--accent);text-decoration:underline;text-decoration-color:rgba(255,122,48,.4);text-underline-offset:5px;}
+.land-card .sub{font-size:13px;color:var(--text-dim);line-height:1.55;text-align:center;margin-bottom:22px;}
+
+.land-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.land-tab{flex:1;text-align:center;padding:12px 8px;font-size:13.5px;font-weight:700;color:var(--text-faint);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.land-tab:hover{color:var(--text-dim);}
+.land-tab.active{color:var(--accent);border-color:var(--accent);}
+.land-tab svg{width:14px;height:14px;}
+.land-tabpanel{display:none;}
+.land-tabpanel.active{display:block;}
+
+.name-field{position:relative;margin-bottom:14px;}
+.name-field .f-lbl{margin-bottom:7px;}
+.name-field-inp-wrap{position:relative;display:flex;align-items:center;}
+.name-field-av{position:absolute;left:5px;width:30px;height:30px;border-radius:50%;background:linear-gradient(155deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;}
+.name-field input{padding-left:44px;}
+
+.cta-primary-row .btn.primary{padding:13px 18px;font-size:14.5px;background:linear-gradient(95deg,var(--accent),#ff5f3a);border:none;}
+.cta-primary-row .btn.primary:hover{background:linear-gradient(95deg,#ff8c4d,#ff7654);}
+.cta-primary-row .btn.primary svg:last-child{margin-left:auto;width:16px;height:16px;}
+.or-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text-faint);font-size:11.5px;}
+.or-divider::before,.or-divider::after{content:"";flex:1;height:1px;background:var(--border);}
+.join-row-wrap .inp{padding-left:38px;}
+.join-field-wrap{position:relative;flex:1;}
+.join-field-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-faint);}
+.land-help-icon{width:15px;height:15px;color:var(--text-faint);cursor:help;flex-shrink:0;}
+
+.land-foot-strip{border-top:1px solid var(--border);margin-top:22px;padding-top:18px;text-align:center;}
+.land-foot-strip .share-line{font-size:12px;color:var(--text-dim);margin-bottom:8px;}
+.land-foot-strip .share-line code{background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:3px 9px;font-family:ui-monospace,monospace;color:var(--text);margin:0 3px;}
+.land-foot-strip .browsers{font-size:11.5px;color:var(--text-faint);}
+.land-foot-strip .browsers b{color:var(--text-dim);}
+
+.land-illus{display:flex;flex-direction:column;align-items:center;gap:20px;padding-left:8px;}
+.illus-frame{position:relative;width:100%;max-width:300px;}
+.illus-tablet{background:#15171b;border:1px solid var(--border);border-radius:20px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.4);transform:rotate(2deg);position:relative;}
+.illus-dots{display:flex;gap:5px;margin-bottom:10px;padding-left:4px;}
+.illus-dots span{width:8px;height:8px;border-radius:50%;}
+.illus-dots span:nth-child(1){background:#ef4444;} .illus-dots span:nth-child(2){background:#f59e0b;} .illus-dots span:nth-child(3){background:#22c55e;}
+.illus-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;border-radius:12px;overflow:hidden;}
+.illus-grid .ig-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:42px;background:var(--panel-2);}
+.illus-controls{display:flex;justify-content:center;gap:8px;margin-top:10px;}
+.illus-controls span{width:30px;height:30px;border-radius:50%;background:var(--panel-3);display:flex;align-items:center;justify-content:center;font-size:13px;}
+.illus-controls span.leave{background:var(--danger);}
+.privacy-card{background:rgba(22,24,28,.9);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;gap:12px;max-width:300px;box-shadow:0 12px 32px rgba(0,0,0,.3);}
+.privacy-card-ic{width:42px;height:42px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);}
+.privacy-card-ic svg{width:21px;height:21px;}
+.privacy-card b{font-size:13.5px;display:block;line-height:1.3;}
+.privacy-card p{font-size:11.5px;color:var(--text-faint);margin-top:5px;line-height:1.5;}
+
+.land-bottom-bar{border-top:1px solid var(--border);padding:14px 0;text-align:center;font-size:12px;color:var(--text-faint);flex-shrink:0;}
+.land-bottom-bar b{color:var(--text-dim);}
+
+@media(max-width:1180px){
+  .land-hero{grid-template-columns:1fr;max-width:560px;}
+  .land-pitch{text-align:center;order:2;padding-right:0;}
+  .land-pitch .lede{margin:0 auto 26px;}
+  .feat-list{max-width:340px;margin:0 auto;}
+  .land-illus{display:none;}
+  .land-card{order:1;}
+}
+
 .eyebrow{font-size:11.5px;color:var(--accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px;}
-.land-card h2{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:8px;}
-.land-card .sub{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:22px;}
 .f-lbl{display:block;font-size:11px;color:var(--text-faint);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;}
 .inp{width:100%;background:var(--panel-2);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:11px 13px;font-size:14px;transition:border-color .15s;}
 .inp:focus{border-color:var(--accent);}
 .inp::placeholder{color:var(--text-faint);}
 .row{display:flex;gap:8px;margin-top:10px;}
-.btn{border-radius:var(--r);border:1px solid var(--border);background:var(--panel-2);color:var(--text);padding:11px 16px;font-size:13.5px;font-weight:600;transition:background .15s,border-color .15s,transform .06s;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;}
+.btn{border-radius:var(--r);border:1px solid var(--border);background:var(--panel-2);color:var(--text);padding:11px 16px;font-size:13.5px;font-weight:600;transition:background .15s,border-color .15s,transform .08s,box-shadow .15s;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;}
+.btn:hover{box-shadow:0 4px 14px rgba(0,0,0,.2);}
 .btn:hover{background:var(--panel-3);} .btn:active{transform:scale(.98);}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#1a0800;}
 .btn.primary:hover{background:#ff8c4d;border-color:#ff8c4d;}
@@ -75,19 +161,52 @@ a{color:var(--accent);text-decoration:none;}
 .blur-chip:hover{border-color:var(--text-faint);}
 .blur-chip.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
 .cam-frame{width:100%;aspect-ratio:16/10;background:#080909;border-radius:var(--r-lg);border:1px solid var(--border);position:relative;overflow:hidden;margin-bottom:13px;}
-.cam-frame video,.cam-frame canvas{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);position:absolute;inset:0;}
-.cam-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:var(--text-faint);font-size:12.5px;z-index:2;background:#080909;}
+.cam-frame video,.cam-frame canvas{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);position:absolute;inset:0;opacity:0;transition:opacity .35s ease;}
+.cam-frame video.cam-ready,.cam-frame canvas.cam-ready{opacity:1;}
+.cam-frame video.cam-no-mirror{transform:none;}
+.cam-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:var(--text-faint);font-size:12.5px;z-index:2;background:#080909;transition:opacity .3s ease;}
+.cam-ph.fading-out{opacity:0;pointer-events:none;}
 .av-circle{width:50px;height:50px;border-radius:50%;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--text-dim);flex-shrink:0;}
+
+/* Camera loading shimmer — replaces the flat placeholder while
+   getUserMedia is still resolving, so the wait reads as "loading"
+   rather than "stuck". */
+.cam-shimmer{position:absolute;inset:0;background:linear-gradient(110deg,#0c0d0f 8%,#1a1c20 18%,#0c0d0f 33%);background-size:200% 100%;animation:cam-shimmer-move 1.6s linear infinite;z-index:1;}
+@keyframes cam-shimmer-move{to{background-position-x:-200%;}}
+.cam-shimmer.hide{display:none;}
+.cam-spinner-ring{width:30px;height:30px;border-radius:50%;border:3px solid rgba(255,255,255,.12);border-top-color:var(--accent);animation:spin .85s linear infinite;}
+
 .cam-toggles{position:absolute;bottom:11px;left:0;right:0;display:flex;justify-content:center;gap:9px;z-index:3;}
-.icon-tog{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(14,15,18,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:var(--text);transition:background .15s;cursor:pointer;}
+.icon-tog{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(14,15,18,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:var(--text);transition:background .15s,transform .12s;cursor:pointer;position:relative;}
 .icon-tog:hover{background:rgba(35,38,43,.9);}
+.icon-tog:active{transform:scale(.92);}
 .icon-tog.off{background:var(--danger);border-color:var(--danger);}
+.icon-tog.on2{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
 .icon-tog svg{width:18px;height:18px;}
+
+/* Camera device picker */
+.cam-device-row{position:absolute;top:11px;right:11px;z-index:4;}
+.cam-device-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(14,15,18,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;transition:background .15s;}
+.cam-device-btn:hover{background:rgba(35,38,43,.9);}
+.cam-device-btn svg{width:16px;height:16px;}
+.cam-device-menu{position:absolute;top:42px;right:0;background:var(--panel);border:1px solid var(--border);border-radius:11px;padding:6px;display:none;flex-direction:column;min-width:200px;box-shadow:0 10px 30px rgba(0,0,0,.45);max-height:220px;overflow-y:auto;}
+.cam-device-menu.show{display:flex;}
+.cam-device-menu button{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;border-radius:8px;font-size:12.5px;color:var(--text);text-align:left;}
+.cam-device-menu button:hover{background:var(--panel-3);}
+.cam-device-menu button.active-item{color:var(--accent);}
+.cam-device-menu button.active-item svg{display:inline-block;}
+.cam-device-menu button svg{width:13px;height:13px;flex-shrink:0;display:none;}
+.cam-device-menu .cdm-label{font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.03em;padding:7px 11px 3px;}
+.cam-switching-overlay{position:absolute;inset:0;background:rgba(8,9,9,.55);display:none;align-items:center;justify-content:center;z-index:5;backdrop-filter:blur(2px);}
+.cam-switching-overlay.show{display:flex;}
+@media(prefers-reduced-motion:reduce){
+  .cam-shimmer{animation:none;background:#0c0d0f;}
+}
 
 /* ═══════════ CALL SCREEN SHELL ═══════════ */
 #s-call{flex-direction:column;overflow:hidden;}
 
-.topbar{display:flex;align-items:center;gap:18px;padding:10px 20px;border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;background:var(--bg);}
+.topbar{display:flex;align-items:center;gap:18px;padding:10px 20px;border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;background:rgba(14,15,18,.85);backdrop-filter:blur(10px);}
 .tb-brand{display:flex;align-items:center;gap:9px;flex-shrink:0;}
 .tb-logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(155deg,var(--accent),var(--accent-2));position:relative;flex-shrink:0;}
 .tb-logo::after{content:"";position:absolute;inset:7px;border-radius:3px;background:var(--bg);}
@@ -106,7 +225,8 @@ a{color:var(--accent);text-decoration:none;}
 .net-bars.fair span:nth-child(-n+3){background:#facc15;} .net-bars.fair span:nth-child(4){background:var(--text-faint);}
 .net-bars.poor span:nth-child(-n+2){background:var(--danger);} .net-bars.poor span:nth-child(n+3){background:var(--text-faint);}
 .tb-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto;}
-.tb-action{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-size:12.5px;font-weight:600;color:var(--text-dim);transition:border-color .15s,color .15s,background .15s;}
+.tb-action{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-size:12.5px;font-weight:600;color:var(--text-dim);transition:border-color .15s,color .15s,background .15s,transform .08s;}
+.tb-action:active{transform:scale(.96);}
 .tb-action:hover{border-color:var(--text-faint);color:var(--text);}
 .tb-action svg{width:14px;height:14px;}
 .tb-action.rec{border-color:var(--danger);color:#fca5a5;}
@@ -122,7 +242,7 @@ a{color:var(--accent);text-decoration:none;}
 .shell{flex:1;display:flex;min-height:0;}
 
 /* ── left sidebar ── */
-.sidenav{width:84px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:14px 0;flex-shrink:0;overflow-y:auto;}
+.sidenav{width:84px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:14px 0;flex-shrink:0;overflow-y:auto;box-shadow:2px 0 12px rgba(0,0,0,.15);}
 .sn-item{width:100%;display:flex;flex-direction:column;align-items:center;gap:4px;padding:11px 4px;color:var(--text-faint);position:relative;transition:color .15s;}
 .sn-item:hover{color:var(--text-dim);}
 .sn-item.active{color:var(--accent);}
@@ -157,7 +277,8 @@ a{color:var(--accent);text-decoration:none;}
 .host-tag{font-size:12px;font-weight:700;border:1px solid var(--accent);color:var(--accent);border-radius:6px;padding:2px 9px;}
 .lobby-status-txt{font-size:18px;font-weight:700;margin-bottom:5px;}
 .lobby-status-sub{font-size:13.5px;color:var(--text-dim);margin-bottom:22px;}
-.lobby-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;display:flex;align-items:center;gap:24px;text-align:left;margin-bottom:18px;}
+.lobby-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;display:flex;align-items:center;gap:24px;text-align:left;margin-bottom:18px;box-shadow:0 8px 28px rgba(0,0,0,.18);transition:border-color .2s;}
+.lobby-card:hover{border-color:var(--text-faint);}
 .lobby-card-col{flex:1;}
 .lc-lbl{font-size:11px;color:var(--text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;}
 .lc-val{font-size:19px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:7px;}
@@ -177,7 +298,8 @@ a{color:var(--accent);text-decoration:none;}
 .tile{background:#080909;border:2px solid var(--border);border-radius:var(--r-lg);position:relative;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;transition:border-color .2s;}
 .tile.speaking{border-color:var(--good);}
 .tile.peer-muted{border-color:var(--danger);}
-.tile video,.tile canvas{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.tile video,.tile canvas{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity .3s ease;}
+.tile video.cam-ready,.tile canvas.cam-ready{opacity:1;}
 .tile.mine video,.tile.mine canvas{transform:scaleX(-1);}
 .tile-lbl{position:absolute;bottom:9px;left:10px;font-size:12px;background:rgba(8,9,9,.65);backdrop-filter:blur(4px);padding:4px 9px;border-radius:6px;display:flex;align-items:center;gap:5px;color:var(--text);z-index:4;max-width:80%;}
 .tile-lbl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -195,6 +317,17 @@ a{color:var(--accent);text-decoration:none;}
 .stage.layout-spotlight .tile.spotlight-main{flex:1;aspect-ratio:auto;min-height:0;}
 .stage.layout-spotlight .strip{display:flex;gap:8px;overflow-x:auto;padding-top:8px;flex-shrink:0;}
 .stage.layout-spotlight .strip .tile{width:150px;aspect-ratio:16/10;flex-shrink:0;}
+
+/* Presentation mode — the shared screen claims nearly the whole stage and
+   the speaking-active border is suppressed so a talking participant in the
+   filmstrip never visually competes with the presentation. */
+.stage.presenting .strip{max-height:96px;}
+.stage.presenting .strip .tile{width:120px;}
+.stage.presenting .tile.spotlight-main{flex:1 1 100%;}
+.stage.presenting .tile.speaking{border-color:var(--border);box-shadow:0 0 0 2px var(--good) inset;}
+.stage.presenting .strip .tile.speaking{border-color:var(--good);box-shadow:none;}
+.presenting-badge{position:absolute;top:9px;left:9px;background:var(--accent);color:#1a0800;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;z-index:6;display:flex;align-items:center;gap:5px;}
+.presenting-badge svg{width:12px;height:12px;}
 
 /* hand raise queue */
 .hand-queue{display:none;align-items:center;gap:7px;padding:7px 18px;background:rgba(245,158,11,.1);border-bottom:1px solid var(--border);font-size:12px;color:#f59e0b;flex-shrink:0;flex-wrap:wrap;}
@@ -223,17 +356,98 @@ a{color:var(--accent);text-decoration:none;}
 /* whiteboard overlay */
 .wb-wrap{position:absolute;inset:0;background:#1c1d20;display:none;z-index:10;flex-direction:column;}
 .wb-wrap.show{display:flex;}
-.wb-toolbar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;}
-.wb-color{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;flex-shrink:0;}
-.wb-color.active{border-color:#fff;}
-.wb-tool-btn{padding:6px 9px;border-radius:7px;background:var(--panel-2);border:1px solid var(--border);font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:5px;}
-.wb-tool-btn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
-.wb-close{margin-left:auto;}
-.wb-canvas-wrap{flex:1;position:relative;overflow:hidden;}
+
+.wb-topbar{display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;box-shadow:0 1px 0 rgba(0,0,0,.2);}
+.wb-share-pill{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:18px;background:var(--panel-2);border:1px solid var(--border);font-size:12.5px;color:var(--text-dim);}
+.wb-share-dot{width:7px;height:7px;border-radius:50%;background:var(--good);flex-shrink:0;animation:blink 1.3s ease-in-out infinite;}
+.wb-stop-btn{padding:7px 14px;border-radius:8px;background:var(--danger);color:#fff;font-size:12.5px;font-weight:700;}
+.wb-stop-btn:hover{background:#dc3636;}
+.wb-topbar-spacer{flex:1;}
+.wb-icon-btn{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:16px;font-weight:600;transition:background .12s,color .12s;}
+.wb-icon-btn:hover{background:var(--panel-2);color:var(--text);}
+.wb-icon-btn:disabled{opacity:.35;cursor:not-allowed;}
+.wb-icon-btn:disabled:hover{background:none;}
+.wb-icon-btn svg{width:16px;height:16px;}
+.wb-zoom-group{display:flex;align-items:center;gap:2px;background:var(--panel-2);border-radius:8px;padding:2px;}
+.wb-zoom-label{font-size:12px;color:var(--text-dim);width:42px;text-align:center;flex-shrink:0;}
+
+.wb-body{flex:1;display:flex;min-height:0;}
+.wb-rail{width:88px;background:#fafafa;border-right:1px solid #e2e2e4;display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:2px;overflow-y:auto;flex-shrink:0;position:relative;}
+.wb-rail-btn{width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;color:#54575e;background:none;transition:background .12s,color .12s;}
+.wb-rail-btn:hover{background:#eef0f2;}
+.wb-rail-btn.active{background:rgba(59,130,246,.12);color:#2563eb;}
+.wb-rail-btn svg{width:18px;height:18px;}
+.wb-rail-btn span{font-size:10px;font-weight:600;}
+.wb-rail-btn:disabled{opacity:.35;cursor:not-allowed;}
+.wb-rail-btn:disabled:hover{background:none;}
+.wb-rail-div{width:60%;height:1px;background:#e2e2e4;margin:6px 0;}
+
+.wb-shapes-menu{position:absolute;left:92px;top:60px;background:#fff;border:1px solid #e2e2e4;border-radius:10px;padding:6px;display:none;gap:4px;box-shadow:0 10px 28px rgba(0,0,0,.18);z-index:30;}
+.wb-shapes-menu.show{display:flex;}
+.wb-shapes-menu button{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#54575e;}
+.wb-shapes-menu button:hover{background:#eef0f2;}
+.wb-shapes-menu button svg{width:18px;height:18px;}
+
+.wb-more-menu{position:absolute;left:92px;bottom:60px;background:#fff;border:1px solid #e2e2e4;border-radius:12px;padding:12px;display:none;flex-direction:column;gap:10px;box-shadow:0 10px 28px rgba(0,0,0,.18);z-index:30;min-width:180px;}
+.wb-more-menu.show{display:flex;}
+.wb-more-menu .cdm-label{font-size:10.5px;color:#8a8d93;text-transform:uppercase;letter-spacing:.03em;}
+.wb-color-group{display:flex;align-items:center;gap:8px;}
+.wb-color{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;flex-shrink:0;transition:transform .12s,border-color .12s;}
+.wb-color:hover{transform:scale(1.12);}
+.wb-color.active{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #3b82f6;}
+.wb-width-group{display:flex;flex-direction:column;}
+.wb-width-group input[type=range]{width:100%;accent-color:#3b82f6;}
+
+.wb-canvas-wrap{flex:1;position:relative;overflow:hidden;background:#fff;}
+#wb-canvas{background:#fff;}
+
+@media(max-width:760px){
+  .wb-rail{width:64px;}
+  .wb-rail-btn span{display:none;}
+  .wb-shapes-menu,.wb-more-menu{left:68px;}
+}
+
+/* Presentation cursor — only shown during screen sharing or whiteboard use.
+   Sized and colored deliberately so it stays visible against light/white
+   presentation backgrounds, per the enhancement spec. */
+.presi-cursor{
+  position:absolute; top:0; left:0;
+  width:30px; height:30px;
+  pointer-events:none;
+  z-index:30;
+  transform:translate(-4px,-2px);
+  transition:left .08s linear, top .08s linear;
+  display:none;
+}
+.presi-cursor.show{display:block;}
+.presi-cursor svg{
+  width:100%; height:100%;
+  filter:drop-shadow(0 0 6px rgba(239,68,68,.9)) drop-shadow(0 0 2px rgba(0,0,0,.6));
+}
+.presi-cursor .pc-arrow{ fill:#ef4444; stroke:#000; stroke-width:1.5; }
+.presi-ripple{
+  position:absolute; top:0; left:0;
+  width:14px; height:14px;
+  border:2px solid #ef4444;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:29;
+  transform:translate(-50%,-50%) scale(0.4);
+  opacity:.9;
+  animation:presi-ripple-anim .55s ease-out forwards;
+}
+@keyframes presi-ripple-anim{
+  0%{transform:translate(-50%,-50%) scale(0.4); opacity:.9;}
+  100%{transform:translate(-50%,-50%) scale(2.4); opacity:0;}
+}
+@media(prefers-reduced-motion:reduce){
+  .presi-cursor{transition:none;}
+  .presi-ripple{animation:none;display:none;}
+}
 #wb-canvas{position:absolute;inset:0;cursor:crosshair;background:#fff;}
 
 /* ── right panels (Participants + Chat, stacked) ── */
-.right-rail{width:300px;border-left:1px solid var(--border);background:var(--panel);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.right-rail{width:300px;border-left:1px solid var(--border);background:rgba(22,24,28,.92);backdrop-filter:blur(10px);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;box-shadow:-2px 0 12px rgba(0,0,0,.15);}
 .right-rail.collapsed{display:none;}
 .rp-panel{display:flex;flex-direction:column;border-bottom:1px solid var(--border);overflow:hidden;}
 .rp-panel.hidden-panel{display:none;}
@@ -275,9 +489,59 @@ a{color:var(--accent);text-decoration:none;}
 
 /* ── secondary pages (AI Notes / Transcript / Recordings / Settings) ── */
 .page-view{display:none;max-width:680px;margin:0 auto;}
+.page-view.active{animation:page-fade-in .25s ease;}
+@keyframes page-fade-in{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:reduce){
+  .page-view.active{animation:none;}
+}
 .page-view.active{display:block;}
-#page-lobby{max-width:none;margin:0;position:relative;height:100%;display:none;}
-#page-lobby.active{display:block;}
+#page-lobby{max-width:none;margin:0;position:relative;height:100%;display:none;flex-direction:column;}
+#page-lobby.active{display:flex;}
+.lobby-corner-widget{position:absolute;top:18px;left:18px;z-index:20;display:flex;flex-direction:column;align-items:flex-start;gap:7px;}
+.lcw-btn{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:22px;background:rgba(22,24,28,.88);backdrop-filter:blur(8px);border:1px solid var(--border);box-shadow:0 6px 20px rgba(0,0,0,.3);font-size:12.5px;font-weight:600;color:var(--text);transition:border-color .15s,transform .1s;cursor:pointer;}
+.lcw-btn:hover{border-color:var(--accent);}
+.lcw-btn:active{transform:scale(.96);}
+.lcw-icon{width:17px;height:17px;display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;}
+.lcw-icon svg{width:100%;height:100%;}
+.lcw-cycle-ic{width:13px;height:13px;color:var(--text-faint);flex-shrink:0;}
+.lcw-dots{display:flex;gap:5px;padding-left:4px;}
+.lcw-dot{width:6px;height:6px;border-radius:50%;background:var(--panel-3);border:1px solid var(--border);transition:background .15s,border-color .15s;}
+.lcw-dot.active{background:var(--accent);border-color:var(--accent);}
+.subtab-live-dot{width:7px;height:7px;border-radius:50%;background:var(--good);display:none;animation:blink 1.3s ease-in-out infinite;flex-shrink:0;}
+.lcw-btn.has-live .subtab-live-dot{display:block;}
+.lobby-subpanel-area{flex:1;position:relative;min-height:0;}
+.lobby-subpanel{display:none;position:absolute;inset:0;}
+.lobby-subpanel.active{display:block;}
+
+/* Speaker View — a single large tile mirroring whoever is currently
+   detected as speaking (including the local user). */
+.speaker-view-wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+.speaker-tile-host{width:100%;max-width:760px;aspect-ratio:16/10;background:#080909;border:2px solid var(--border);border-radius:var(--r-lg);position:relative;overflow:hidden;transition:border-color .2s;}
+.speaker-tile-host.is-speaking{border-color:var(--good);box-shadow:0 0 0 3px rgba(34,197,94,.18);}
+.speaker-tile-host video,.speaker-tile-host canvas{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.speaker-tile-host .sv-mirror-source{transform:scaleX(-1);}
+.speaker-view-label{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--text-dim);}
+.speaker-view-label .sv-mic-ico{width:14px;height:14px;color:var(--good);}
+.speaker-view-empty{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--text-faint);text-align:center;}
+.speaker-view-empty svg{width:40px;height:40px;opacity:.45;}
+.speaker-view-empty p{font-size:13.5px;max-width:280px;line-height:1.5;}
+
+/* Screen Share View */
+.ssv-wrap{height:100%;display:flex;flex-direction:column;}
+.ssv-active{flex:1;display:none;flex-direction:column;min-height:0;}
+.ssv-active.show{display:flex;}
+.ssv-stage{flex:1;background:#080909;border:1px solid var(--border);border-radius:var(--r-lg);position:relative;overflow:hidden;min-height:0;}
+.ssv-stage video{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;background:#080909;}
+.ssv-meta{display:flex;align-items:center;justify-content:space-between;padding:11px 4px 0;flex-shrink:0;}
+.ssv-meta-who{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--text-dim);}
+.ssv-meta-who .av-circle{width:26px;height:26px;font-size:10px;background:linear-gradient(155deg,var(--accent),var(--accent-2));color:#fff;border:none;}
+.ssv-empty{height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--text-faint);text-align:center;}
+.ssv-empty.show{display:flex;}
+.ssv-empty-ic{width:64px;height:64px;border-radius:50%;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
+.ssv-empty-ic svg{width:28px;height:28px;opacity:.6;}
+.ssv-empty p{font-size:14px;font-weight:600;color:var(--text-dim);}
+.ssv-empty span{font-size:12.5px;max-width:300px;line-height:1.5;}
+#page-participants-grid{max-width:none;margin:0;}
 .page-lobby-overlays{position:absolute;inset:0;pointer-events:none;}
 .page-lobby-overlays .cap-overlay,.page-lobby-overlays .wb-wrap{pointer-events:auto;}
 .page-lobby-overlays .emoji-tray{pointer-events:none;}
@@ -288,6 +552,18 @@ a{color:var(--accent);text-decoration:none;}
 .page-head h2{font-size:19px;font-weight:700;}
 .page-head p{font-size:12.5px;color:var(--text-dim);}
 .page-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:14px;}
+
+/* Participants View grid */
+.ppl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;max-width:none;}
+.ppl-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:border-color .15s,transform .15s;position:relative;}
+.ppl-card:hover{border-color:var(--text-faint);transform:translateY(-2px);}
+.ppl-card .av-circle{width:58px;height:58px;font-size:19px;background:linear-gradient(155deg,var(--accent),var(--accent-2));color:#fff;border:none;}
+.ppl-card-name{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:6px;justify-content:center;}
+.ppl-card-status{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--text-faint);}
+.ppl-card-status .stat-on{color:var(--good);}
+.ppl-card-status .stat-off{color:var(--danger);}
+.ppl-card-status svg{width:14px;height:14px;}
+.ppl-card .p-host-tag{position:absolute;top:10px;right:10px;}
 .notice-box{display:flex;gap:11px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.3);border-radius:var(--r);padding:13px 15px;font-size:12.5px;color:#ddd6fe;line-height:1.55;margin-bottom:16px;}
 .notice-box svg{width:17px;height:17px;color:#a78bfa;flex-shrink:0;margin-top:1px;}
 .transcript-line{padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5;}
@@ -387,36 +663,156 @@ a{color:var(--accent);text-decoration:none;}
 
 <!-- ═══════════ LANDING ═══════════ -->
 <div id="s-land" class="screen active">
-  <div class="land-logo">
-    <span class="logo-mark"></span>
-    <div class="logo-text"><h1>Meetly</h1><p>Simple • Secure • Fast Meetings</p></div>
+
+  <div class="land-topbar">
+    <div class="land-logo">
+      <span class="logo-mark"></span>
+      <div class="logo-text"><h1>Meetly</h1><p>Simple • Secure • Fast Meetings</p></div>
+    </div>
+    <div class="land-topbar-right">
+      <div class="lib-status"><span class="dot pulse" id="lib-dot"></span><span id="lib-txt">loading…</span></div>
+      <div class="lang-pick" id="lang-pick" title="Language selection — UI text is currently English-only in this build">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        English
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
   </div>
-  <div class="lib-status"><span class="dot pulse" id="lib-dot"></span><span id="lib-txt">loading…</span></div>
 
-  <div class="land-card">
-    <p class="eyebrow">Free · peer-to-peer · no signup</p>
-    <h2>Start meeting<br>in seconds.</h2>
-    <p class="sub">Create a room and share the link, or join one with a meeting code. Works directly in your browser.</p>
+  <div class="land-hero">
 
-    <label class="f-lbl" for="disp-name">Your name</label>
-    <input id="disp-name" class="inp" type="text" placeholder="e.g. Prem" maxlength="30" autocomplete="off">
+    <div class="land-pitch">
+      <h1>Meetly makes every <span class="hl">meeting</span> matter.</h1>
+      <p class="lede">Create a room, share the link, and collaborate instantly. No sign-up, no hassle, just seamless meetings.</p>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-ic" style="background:rgba(167,139,250,.15);color:#a78bfa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg></div>
+          <div class="feat-txt"><b>100% Free</b><span>No hidden charges. Ever.</span></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ic" style="background:rgba(34,197,94,.15);color:var(--good);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="feat-txt"><b>Instant Meetings</b><span>Start in seconds, not minutes.</span></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ic" style="background:rgba(59,130,246,.15);color:#60a5fa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="feat-txt"><b>Secure &amp; Private</b><span>Your meetings are peer-to-peer.</span></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-ic" style="background:var(--accent-dim);color:var(--accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="feat-txt"><b>No Signup Required</b><span>Jump in quickly. Stay connected.</span></div>
+        </div>
+      </div>
+    </div>
 
-    <div class="row">
-      <button class="btn primary" id="create-btn" disabled>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-        New meeting
-      </button>
+    <div class="land-card">
+      <div class="land-badge-row">
+        <span class="land-pill-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2"/></svg>
+          FREE · PEER-TO-PEER · NO SIGNUP
+        </span>
+      </div>
+      <h2>Start meeting<br>in <span class="hl">seconds.</span></h2>
+      <p class="sub">Create a room and share the link, or join one with a meeting code. Works directly in your browser.</p>
+
+      <div class="land-tabs">
+        <button class="land-tab active" data-landtab="create">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          Create New Meeting
+        </button>
+        <button class="land-tab" data-landtab="join">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+          Join Meeting
+        </button>
+      </div>
+
+      <!-- Both panels stay in the DOM together (same as before) — the tabs
+           are a visual convenience layered on top; the underlying create
+           and join flows are unchanged and both remain fully usable. -->
+      <div class="land-tabpanel active" id="land-tabpanel-create">
+        <div class="name-field">
+          <label class="f-lbl" for="disp-name">Your name</label>
+          <div class="name-field-inp-wrap">
+            <span class="name-field-av" id="land-name-av">?</span>
+            <input id="disp-name" class="inp" type="text" placeholder="e.g. Prem" maxlength="30" autocomplete="off">
+          </div>
+        </div>
+        <div class="cta-primary-row">
+          <button class="btn primary" id="create-btn" disabled style="width:100%;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            New meeting
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="or-divider">or</div>
+        <div class="join-row-wrap">
+          <label class="f-lbl" for="join-code">Enter meeting code</label>
+          <div class="row" style="margin-top:7px;">
+            <div class="join-field-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+              <input id="join-code" class="inp" type="text" placeholder="e.g. 7room-6390" autocomplete="off">
+            </div>
+            <button class="btn" id="join-btn" style="flex:0 0 auto;padding:11px 18px;">Join</button>
+          </div>
+        </div>
+        <div class="opt-row">
+          <label><input type="checkbox" id="wr-toggle"> Require host approval (waiting room)</label>
+          <svg class="land-help-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" title="When on, you'll approve each person before they can join."><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div id="land-err" class="err"></div>
+      </div>
+
+      <div class="land-tabpanel" id="land-tabpanel-join">
+        <div class="name-field">
+          <label class="f-lbl" for="disp-name-jointab">Your name</label>
+          <div class="name-field-inp-wrap">
+            <span class="name-field-av" id="land-name-av-2">?</span>
+            <input id="disp-name-jointab" class="inp" type="text" placeholder="e.g. Prem" maxlength="30" autocomplete="off">
+          </div>
+        </div>
+        <label class="f-lbl" for="join-code-jointab" style="margin-top:14px;display:block;">Meeting code</label>
+        <div class="row" style="margin-top:7px;">
+          <div class="join-field-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+            <input id="join-code-jointab" class="inp" type="text" placeholder="e.g. 7room-6390" autocomplete="off">
+          </div>
+        </div>
+        <div class="cta-primary-row" style="margin-top:14px;">
+          <button class="btn primary" id="join-btn-jointab" style="width:100%;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+            Join meeting
+          </button>
+        </div>
+      </div>
+
+      <div class="land-foot-strip">
+        <p class="share-line">Share a link like: <code>?room=6390</code> with others to invite them.</p>
+        <p class="browsers">Works best in <b>Chrome</b>, <b>Edge</b> or <b>Firefox</b>.</p>
+      </div>
     </div>
-    <div class="row">
-      <input id="join-code" class="inp" type="text" placeholder="Enter meeting code" autocomplete="off">
-      <button class="btn" id="join-btn" style="flex:0 0 auto;padding:11px 18px;">Join</button>
+
+    <div class="land-illus">
+      <div class="illus-frame">
+        <div class="illus-tablet">
+          <div class="illus-dots"><span></span><span></span><span></span></div>
+          <div class="illus-grid">
+            <div class="ig-cell">👋</div><div class="ig-cell">🙂</div>
+            <div class="ig-cell">🎧</div><div class="ig-cell">🧑‍💻</div>
+          </div>
+          <div class="illus-controls">
+            <span>🎤</span><span>🎥</span><span>🖥️</span><span>💬</span><span>⋯</span>
+            <span class="leave">📞</span>
+          </div>
+        </div>
+      </div>
+      <div class="privacy-card">
+        <div class="privacy-card-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div><b>Your privacy<br>is our priority</b><p>Calls are peer-to-peer, so nothing is relayed through a server that could store your meeting.</p></div>
+      </div>
     </div>
-    <div class="opt-row">
-      <label><input type="checkbox" id="wr-toggle"> Require host approval (waiting room)</label>
-    </div>
-    <div id="land-err" class="err"></div>
-    <p class="hint">Share a link like <b>?room=6390</b> with others to invite them. Works best in <b>Chrome</b>, Edge, or Firefox.</p>
+
   </div>
+
+  <div class="land-bottom-bar">Made with ❤️ by <b>Meetly</b> · v1.0.0</div>
 </div>
 
 <!-- ═══════════ WAITING FOR HOST ═══════════ -->
@@ -439,12 +835,21 @@ a{color:var(--accent);text-decoration:none;}
       <button class="blur-chip" data-level="soft">Soft blur</button>
       <button class="blur-chip" data-level="strong">Strong blur</button>
     </div>
-    <div class="cam-frame">
+    <div class="cam-frame" id="pre-cam-frame">
       <video id="pre-vid" autoplay muted playsinline></video>
       <canvas id="pre-canvas" style="display:none;"></canvas>
+      <div class="cam-shimmer" id="pre-shimmer"></div>
       <div class="cam-ph" id="pre-ph">
         <div class="av-circle" id="pre-av">?</div>
+        <div class="cam-spinner-ring"></div>
         <span id="pre-status">Asking for camera &amp; microphone…</span>
+      </div>
+      <div class="cam-switching-overlay" id="pre-switching-overlay"><div class="cam-spinner-ring"></div></div>
+      <div class="cam-device-row">
+        <button class="cam-device-btn" id="pre-device-btn" aria-label="Choose camera" title="Choose camera">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        </button>
+        <div class="cam-device-menu" id="pre-device-menu"></div>
       </div>
       <div class="cam-toggles">
         <button class="icon-tog" id="pre-mic" aria-label="Toggle mic">
@@ -452,6 +857,9 @@ a{color:var(--accent);text-decoration:none;}
         </button>
         <button class="icon-tog" id="pre-cam" aria-label="Toggle camera">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </button>
+        <button class="icon-tog" id="pre-mirror" aria-label="Toggle mirror" title="Flip preview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M16 7l4 5-4 5"/><path d="M8 7L4 12l4 5"/></svg>
         </button>
       </div>
     </div>
@@ -566,69 +974,234 @@ a{color:var(--accent);text-decoration:none;}
       <div class="content-area" id="content-area">
 
         <!-- LOBBY HOME PAGE -->
+        <!-- PARTICIPANTS VIEW PAGE (grid) — a separate view from the existing
+             right-rail Participants panel, per the enhancement spec; both
+             remain available and neither replaces the other. -->
+        <div class="page-view" id="page-participants-grid">
+          <div class="page-head">
+            <div class="page-head-ic" style="background:var(--accent-dim);color:var(--accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div><h2>Participants View</h2><p>Everyone in this meeting, at a glance</p></div>
+            <button class="btn" id="pg-back-btn" style="flex:0 0 auto;margin-left:auto;padding:9px 16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back to Meeting
+            </button>
+          </div>
+          <div class="ppl-grid" id="ppl-grid"></div>
+        </div>
+
         <div class="page-view active" id="page-lobby">
-          <div class="lobby-home" id="lobby-home-solo">
-            <div class="lobby-avatar" id="lobby-avatar">P</div>
-            <div class="lobby-name"><span id="lobby-name-txt">Prem</span><span class="host-tag" id="lobby-host-tag">Host</span></div>
-            <div class="lobby-status-txt" id="lobby-status-txt">You are the only participant</div>
-            <div class="lobby-status-sub">Share the meeting link to invite others.</div>
 
-            <div class="lobby-card">
-              <div class="lobby-card-col">
-                <div class="lc-lbl">Meeting ID</div>
-                <div class="lc-val"><span id="lobby-room-id"></span><button id="lobby-copy-id"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-              </div>
-              <div class="lobby-card-col">
-                <div class="lc-lbl">Invite others</div>
-                <div class="lc-val link-val"><span id="lobby-invite-link"></span><button id="lobby-copy-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
-              </div>
-              <div class="lobby-qr" id="lobby-qr"></div>
-            </div>
-
-            <div class="lobby-actions">
-              <button class="btn primary" id="lobby-copy-link-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.07 0l1.41-1.41a5 5 0 0 0-7.07-7.07L10 6"/><path d="M14 11a5 5 0 0 0-7.07 0l-1.41 1.41a5 5 0 0 0 7.07 7.07L14 18"/></svg>
-                Copy Link
-              </button>
-              <button class="btn" id="lobby-invite-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
-                Invite People
-              </button>
-            </div>
-            <div class="lobby-tip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
-              Tip: Share the link or meeting ID with others to join.
+          <div class="lobby-corner-widget" id="lobby-corner-widget" title="Click to switch view">
+            <button class="lcw-btn" id="lcw-btn" data-subtab="lobby">
+              <span class="lcw-icon" id="lcw-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </span>
+              <span class="lcw-label" id="lcw-label">Lobby</span>
+              <span class="subtab-live-dot" id="lcw-live-dot"></span>
+              <svg class="lcw-cycle-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            </button>
+            <div class="lcw-dots">
+              <span class="lcw-dot active" data-subtab="lobby"></span>
+              <span class="lcw-dot" data-subtab="speaker"></span>
+              <span class="lcw-dot" data-subtab="screenshare"></span>
             </div>
           </div>
 
-          <div class="stage" id="stage"></div>
+          <div class="lobby-subpanel-area">
 
-          <!-- These overlays work regardless of whether the call is in
-               solo lobby view or grid view, so they live outside #stage
-               (which is hidden while alone) and anchor to this wrapper
-               instead, which is always visible. -->
-          <div class="page-lobby-overlays" id="page-lobby-overlays">
-            <div class="cap-overlay" id="cap-overlay"></div>
-            <div class="wb-wrap" id="wb-wrap">
-              <div class="wb-toolbar">
-                <button class="wb-color" style="background:#1a1a1a;" data-color="#1a1a1a"></button>
-                <button class="wb-color active" style="background:#ef4444;" data-color="#ef4444"></button>
-                <button class="wb-color" style="background:#22c55e;" data-color="#22c55e"></button>
-                <button class="wb-color" style="background:#3b82f6;" data-color="#3b82f6"></button>
-                <button class="wb-color" style="background:#ff7a30;" data-color="#ff7a30"></button>
-                <button class="wb-tool-btn active" id="wb-pen-btn" data-tool="pen">✏️ Pen</button>
-                <button class="wb-tool-btn" id="wb-erase-btn" data-tool="erase">🧹 Erase</button>
-                <button class="wb-tool-btn" id="wb-clear-btn">🗑️ Clear</button>
-                <button class="wb-tool-btn wb-close" id="wb-close-btn">Close board</button>
+            <div class="lobby-subpanel active" id="subpanel-lobby">
+              <div class="lobby-home" id="lobby-home-solo">
+                <div class="lobby-avatar" id="lobby-avatar">P</div>
+                <div class="lobby-name"><span id="lobby-name-txt">Prem</span><span class="host-tag" id="lobby-host-tag">Host</span></div>
+                <div class="lobby-status-txt" id="lobby-status-txt">You are the only participant</div>
+                <div class="lobby-status-sub">Share the meeting link to invite others.</div>
+
+                <div class="lobby-card">
+                  <div class="lobby-card-col">
+                    <div class="lc-lbl">Meeting ID</div>
+                    <div class="lc-val"><span id="lobby-room-id"></span><button id="lobby-copy-id"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  </div>
+                  <div class="lobby-card-col">
+                    <div class="lc-lbl">Invite others</div>
+                    <div class="lc-val link-val"><span id="lobby-invite-link"></span><button id="lobby-copy-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  </div>
+                  <div class="lobby-qr" id="lobby-qr"></div>
+                </div>
+
+                <div class="lobby-actions">
+                  <button class="btn primary" id="lobby-copy-link-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.07 0l1.41-1.41a5 5 0 0 0-7.07-7.07L10 6"/><path d="M14 11a5 5 0 0 0-7.07 0l-1.41 1.41a5 5 0 0 0 7.07 7.07L14 18"/></svg>
+                    Copy Link
+                  </button>
+                  <button class="btn" id="lobby-invite-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+                    Invite People
+                  </button>
+                </div>
+                <div class="lobby-tip">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+                  Tip: Share the link or meeting ID with others to join.
+                </div>
               </div>
-              <div class="wb-canvas-wrap"><canvas id="wb-canvas"></canvas></div>
+
+              <div class="stage" id="stage"></div>
+
+              <!-- These overlays work regardless of whether the call is in
+                   solo lobby view or grid view, so they live outside #stage
+                   (which is hidden while alone) and anchor to this wrapper
+                   instead, which is always visible. -->
+              <div class="page-lobby-overlays" id="page-lobby-overlays">
+                <div class="cap-overlay" id="cap-overlay"></div>
+                <div class="wb-wrap" id="wb-wrap">
+                  <div class="wb-topbar">
+                    <div class="wb-share-pill"><span class="wb-share-dot"></span>You are sharing Whiteboard</div>
+                    <button class="wb-stop-btn" id="wb-close-btn">Stop sharing</button>
+                    <div class="wb-topbar-spacer"></div>
+                    <button class="wb-icon-btn" id="wb-undo-btn" title="Undo (Ctrl+Z)" disabled>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7l-3 3"/></svg>
+                    </button>
+                    <button class="wb-icon-btn" id="wb-redo-btn" title="Redo (Ctrl+Shift+Z)" disabled>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 1 1-3-7l3 3"/></svg>
+                    </button>
+                    <div class="wb-zoom-group">
+                      <button class="wb-icon-btn" id="wb-zoom-out-btn" title="Zoom out">−</button>
+                      <span class="wb-zoom-label" id="wb-zoom-label">100%</span>
+                      <button class="wb-icon-btn" id="wb-zoom-in-btn" title="Zoom in">+</button>
+                    </div>
+                    <button class="wb-icon-btn" id="wb-fullscreen-btn" title="Fullscreen">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    </button>
+                  </div>
+
+                  <div class="wb-body">
+                    <div class="wb-rail">
+                      <button class="wb-rail-btn active" data-tool="select" title="Select">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51z"/></svg>
+                        <span>Select</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="pen" title="Pen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
+                        <span>Pen</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="erase" title="Eraser">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H9l-7-7c-.5-.5-.5-1.4 0-2L13.6 1.4c.5-.5 1.4-.5 2 0L21 6.7c.5.5.5 1.4 0 2L13 17"/><line x1="9" y1="20" x2="20" y2="20"/></svg>
+                        <span>Eraser</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="shapes" title="Shapes">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>
+                        <span>Shapes</span>
+                      </button>
+                      <div class="wb-shapes-menu" id="wb-shapes-menu">
+                        <button data-tool="rect" title="Rectangle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/></svg></button>
+                        <button data-tool="ellipse" title="Ellipse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="9" ry="7"/></svg></button>
+                      </div>
+                      <button class="wb-rail-btn" data-tool="text" title="Text">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                        <span>Text</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="sticky" title="Sticky Note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10l6-6V5a2 2 0 0 0-2-2z"/><path d="M15 21v-5a1 1 0 0 1 1-1h5"/></svg>
+                        <span>Sticky Note</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="image" title="Image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span>Image</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="line" title="Line">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/></svg>
+                        <span>Line</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="arrow" title="Arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+                        <span>Arrow</span>
+                      </button>
+                      <button class="wb-rail-btn" data-tool="table" title="Table">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+                        <span>Table</span>
+                      </button>
+                      <div class="wb-rail-div"></div>
+                      <button class="wb-rail-btn" id="wb-undo-rail-btn" title="Undo" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 3-7l-3 3"/></svg>
+                        <span>Undo</span>
+                      </button>
+                      <button class="wb-rail-btn" id="wb-redo-rail-btn" title="Redo" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 1 1-3-7l3 3"/></svg>
+                        <span>Redo</span>
+                      </button>
+                      <button class="wb-rail-btn" id="wb-clear-btn" title="Clear All">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+                        <span>Clear All</span>
+                      </button>
+                      <button class="wb-rail-btn" id="wb-more-btn" title="More">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
+                        <span>More</span>
+                      </button>
+                      <div class="wb-more-menu" id="wb-more-menu">
+                        <div class="wb-color-group">
+                          <button class="wb-color" style="background:#1a1a1a;" data-color="#1a1a1a" title="Black"></button>
+                          <button class="wb-color active" style="background:#ef4444;" data-color="#ef4444" title="Red"></button>
+                          <button class="wb-color" style="background:#22c55e;" data-color="#22c55e" title="Green"></button>
+                          <button class="wb-color" style="background:#3b82f6;" data-color="#3b82f6" title="Blue"></button>
+                          <button class="wb-color" style="background:#ff7a30;" data-color="#ff7a30" title="Orange"></button>
+                        </div>
+                        <div class="wb-width-group">
+                          <span class="cdm-label" style="padding:4px 0 2px;">Stroke width</span>
+                          <input type="range" id="wb-width-slider" min="1" max="12" value="3">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="wb-canvas-wrap">
+                      <canvas id="wb-canvas"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="emoji-tray" id="emoji-tray">
+                  <button data-e="👍">👍</button><button data-e="❤️">❤️</button>
+                  <button data-e="😂">😂</button><button data-e="👏">👏</button>
+                  <button data-e="🎉">🎉</button><button data-e="😮">😮</button>
+                  <button data-e="🔥">🔥</button><button data-e="🙌">🙌</button>
+                </div>
+              </div>
             </div>
-            <div class="emoji-tray" id="emoji-tray">
-              <button data-e="👍">👍</button><button data-e="❤️">❤️</button>
-              <button data-e="😂">😂</button><button data-e="👏">👏</button>
-              <button data-e="🎉">🎉</button><button data-e="😮">😮</button>
-              <button data-e="🔥">🔥</button><button data-e="🙌">🙌</button>
+
+            <!-- SPEAKER VIEW — mirrors whoever is currently detected as
+                 speaking (reusing the same audio-level analysers already
+                 running for the speaking-border highlight elsewhere). -->
+            <div class="lobby-subpanel" id="subpanel-speaker">
+              <div class="speaker-view-wrap" id="speaker-view-active" style="display:none;">
+                <div class="speaker-tile-host" id="speaker-tile-host"></div>
+                <div class="speaker-view-label">
+                  <svg class="sv-mic-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                  <span id="speaker-view-name-txt">—</span> is talking
+                </div>
+              </div>
+              <div class="speaker-view-empty" id="speaker-view-empty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                <p>No one is talking right now. Whoever speaks next will appear here automatically.</p>
+              </div>
             </div>
+
+            <!-- SCREEN SHARE VIEW — mirrors the existing presentation-mode
+                 state used elsewhere; this view doesn't change who is
+                 sharing, it just gives screen sharing its own dedicated
+                 destination separate from the video grid. -->
+            <div class="lobby-subpanel" id="subpanel-screenshare">
+              <div class="ssv-wrap">
+                <div class="ssv-active" id="ssv-active">
+                  <div class="ssv-meta">
+                    <div class="ssv-meta-who"><div class="av-circle" id="ssv-presenter-av">?</div><span id="ssv-presenter-name">—</span><span style="color:var(--text-faint);">is presenting</span></div>
+                  </div>
+                  <div class="ssv-stage" id="ssv-stage"></div>
+                </div>
+                <div class="ssv-empty show" id="ssv-empty">
+                  <div class="ssv-empty-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                  <p>No one is sharing their screen</p>
+                  <span>When someone starts presenting, their shared screen will appear here automatically.</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -712,7 +1285,14 @@ a{color:var(--accent);text-decoration:none;}
     <!-- ── right rail: Participants + Chat ── -->
     <div class="right-rail" id="right-rail">
       <div class="rp-panel people-panel" id="rp-people">
-        <div class="rp-head"><h3 id="rp-people-title">Participants (1)</h3><button class="rp-close" data-close="people"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+        <div class="rp-head"><h3 id="rp-people-title">Participants (1)</h3>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <button class="rp-close" id="rp-grid-view-btn" title="Open Participants View (grid)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </button>
+            <button class="rp-close" data-close="people"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          </div>
+        </div>
         <div class="p-list" id="people-body"></div>
       </div>
       <div class="rp-panel chat-panel" id="rp-chat">
@@ -739,8 +1319,12 @@ a{color:var(--accent);text-decoration:none;}
     <div class="c-grp">
       <button class="c-btn" id="cam-btn" aria-label="Toggle camera" title="Camera (C)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <span class="c-caret" id="cam-switch-caret" title="Switch camera">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
       </button>
       <span class="c-lbl">Camera</span>
+      <div class="cam-device-menu" id="call-device-menu" style="position:absolute;bottom:64px;left:50%;transform:translateX(-50%);"></div>
     </div>
     <div class="c-grp">
       <button class="c-btn" id="screen-btn" aria-label="Share screen" title="Share screen (S)">
@@ -871,7 +1455,15 @@ window.addEventListener('load',function(){
     }
   },400);
 });
-(function(){ var r=getQueryRoom(); if(r) $('join-code').value=r; })();
+var arrivedViaInviteLink=false;
+(function(){
+  var r=getQueryRoom();
+  if(r){
+    $('join-code').value=r;
+    $('join-code-jointab').value=r;
+    arrivedViaInviteLink=true;
+  }
+})();
 
 function landErr(m){ var b=$('land-err'); b.textContent=m; b.style.display='block'; }
 function preErr(m){ var b=$('pre-err'); b.textContent=m; b.style.display='block'; }
@@ -891,8 +1483,51 @@ $('join-btn').addEventListener('click',function(){
 });
 
 // ═══════════════════════════════════════════════
+// LANDING TABS (Create / Join) — purely a visual convenience over the
+// existing two forms. Both panels stay mounted; this just shows one at a
+// time and keeps the duplicate "Join" tab fields synced into the same
+// canonical disp-name/join-code inputs the handlers above already trust,
+// so no validation logic is duplicated.
+// ═══════════════════════════════════════════════
+document.querySelectorAll('.land-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    var which=this.dataset.landtab;
+    document.querySelectorAll('.land-tab').forEach(function(t){ t.classList.toggle('active',t===tab); });
+    $('land-tabpanel-create').classList.toggle('active',which==='create');
+    $('land-tabpanel-join').classList.toggle('active',which==='join');
+    if(which==='join'){ $('disp-name-jointab').value=$('disp-name').value; $('join-code-jointab').focus(); }
+  });
+});
+if(arrivedViaInviteLink){
+  // Arriving via an invite link clearly means "I'm joining", so land on
+  // that tab automatically instead of making people click over to it.
+  document.querySelector('.land-tab[data-landtab="join"]').click();
+}
+$('lang-pick').addEventListener('click',function(){
+  toast('Only English is available in this build — no other languages are translated yet.');
+});
+$('join-btn-jointab').addEventListener('click',function(){
+  $('disp-name').value=$('disp-name-jointab').value;
+  $('join-code').value=$('join-code-jointab').value;
+  $('join-btn').click();
+});
+// Keep both name fields and their avatar-initial badges in sync as the
+// person types, regardless of which tab they're on.
+function syncLandName(value){
+  var initials=(value||'').trim().slice(0,1).toUpperCase()||'?';
+  $('land-name-av').textContent=initials;
+  $('land-name-av-2').textContent=initials;
+}
+$('disp-name').addEventListener('input',function(){ syncLandName(this.value); $('disp-name-jointab').value=this.value; });
+$('disp-name-jointab').addEventListener('input',function(){ syncLandName(this.value); $('disp-name').value=this.value; });
+
+// ═══════════════════════════════════════════════
 // PRECHECK
 // ═══════════════════════════════════════════════
+var camDevices=[];
+var currentCamDeviceId=null;
+var mirrorEnabled=true;
+
 function enterPrecheck(){
   goTo('s-pre');
   $('pre-pill').textContent='Code: '+R.id;
@@ -901,17 +1536,154 @@ function enterPrecheck(){
     ? 'Starting this meeting. Share the code with others once you join.'
     : 'Joining '+R.id+'. You\'ll be connected once the host lets you in.';
 
-  navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(function(stream){
-    L.stream=stream; L.camTrack=stream.getVideoTracks()[0]||null; L.outputStream=stream;
-    $('pre-vid').srcObject=stream;
-    $('pre-ph').style.display='none';
-    initSegmenter();
+  startCameraStream();
+}
+
+function videoConstraintsFor(deviceId){
+  // Ask for a comfortable HD-ish feed but let the browser fall back if the
+  // camera can't deliver it, rather than failing outright on a strict
+  // exact() constraint.
+  var v = { width:{ideal:1280}, height:{ideal:720}, frameRate:{ideal:30,max:30} };
+  if(deviceId) v.deviceId={ ideal:deviceId };
+  return v;
+}
+
+function startCameraStream(deviceId){
+  showCamShimmer(true);
+  $('pre-err').style.display='none';
+  navigator.mediaDevices.getUserMedia({ video:videoConstraintsFor(deviceId), audio:true }).then(function(stream){
+    onCameraStreamReady(stream);
   }).catch(function(e){
     console.error(e);
+    // If a specific device was requested and failed (e.g. unplugged),
+    // retry once with no device constraint instead of leaving the person
+    // stuck on a broken camera choice.
+    if(deviceId){
+      toast('That camera is unavailable — switching back to the default.');
+      startCameraStream(null);
+      return;
+    }
+    showCamShimmer(false);
     $('pre-status').textContent='Camera/mic access blocked.';
+    $('pre-ph').classList.remove('fading-out');
     preErr('Could not access camera or mic. Check browser permissions (lock icon in address bar), then reload.');
   });
 }
+
+function onCameraStreamReady(stream){
+  // Stop whatever stream we had before (e.g. switching cameras) so the
+  // old device's light/indicator turns off promptly.
+  if(L.stream && L.stream!==stream){ L.stream.getTracks().forEach(function(t){ t.stop(); }); }
+  L.stream=stream; L.camTrack=stream.getVideoTracks()[0]||null; L.outputStream=stream;
+  currentCamDeviceId = L.camTrack ? (L.camTrack.getSettings().deviceId||null) : null;
+
+  var video=$('pre-vid');
+  video.srcObject=stream;
+  // Wait for real video data before fading the preview in, so the camera
+  // frame appears the moment there's actually something to see rather
+  // than the instant srcObject is assigned (which can precede frames by
+  // a noticeable beat on slower devices).
+  video.onloadeddata=function(){
+    showCamShimmer(false);
+    video.classList.add('cam-ready');
+    $('pre-ph').classList.add('fading-out');
+  };
+  initSegmenter();
+  enumerateCameras();
+}
+
+function showCamShimmer(show){
+  $('pre-shimmer').classList.toggle('hide',!show);
+  if(show){
+    $('pre-ph').classList.remove('fading-out');
+    $('pre-vid').classList.remove('cam-ready');
+  }
+}
+
+// ── Camera device picker ──
+function enumerateCameras(){
+  if(!navigator.mediaDevices.enumerateDevices) return;
+  navigator.mediaDevices.enumerateDevices().then(function(devices){
+    camDevices=devices.filter(function(d){ return d.kind==='videoinput'; });
+    renderCamDeviceMenu();
+  }).catch(function(){});
+}
+function renderCamDeviceMenu(){
+  ['pre-device-menu','call-device-menu'].forEach(function(menuId){
+    var menu=$(menuId); if(!menu) return;
+    if(camDevices.length<=1){
+      // Nothing meaningful to switch between — keep the button around but
+      // make that obvious rather than showing an empty menu.
+      menu.innerHTML='<div class="cdm-label">Camera</div><button disabled style="color:var(--text-faint);">Only one camera found</button>';
+      return;
+    }
+    menu.innerHTML='<div class="cdm-label">Choose a camera</div>';
+    camDevices.forEach(function(d,i){
+      var btn=el('button');
+      var isActive = d.deviceId===currentCamDeviceId;
+      btn.className = isActive ? 'active-item' : '';
+      btn.innerHTML = '<span>'+esc(d.label||('Camera '+(i+1)))+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+      btn.addEventListener('click',function(){
+        menu.classList.remove('show');
+        if(d.deviceId===currentCamDeviceId) return;
+        switchCamera(d.deviceId);
+      });
+      menu.appendChild(btn);
+    });
+  });
+}
+function switchCamera(deviceId){
+  var inCall = $('s-call').classList.contains('active');
+  var overlayEl = inCall ? null : $('pre-switching-overlay');
+  if(overlayEl) overlayEl.classList.add('show');
+  navigator.mediaDevices.getUserMedia({ video:videoConstraintsFor(deviceId), audio:false }).then(function(newStream){
+    var newVideoTrack=newStream.getVideoTracks()[0];
+    if(!newVideoTrack){ if(overlayEl) overlayEl.classList.remove('show'); return; }
+    // Keep the existing audio track (the mic choice is independent of the
+    // camera) and only swap the video portion of the stream.
+    if(L.camTrack){ L.camTrack.stop(); }
+    var combined=new MediaStream([newVideoTrack].concat(L.stream.getAudioTracks()));
+    L.stream=combined; L.camTrack=newVideoTrack; L.outputStream=combined;
+    newVideoTrack.enabled=Me.camOn; // preserve whatever on/off state was set before switching
+    currentCamDeviceId=newVideoTrack.getSettings().deviceId||deviceId;
+    if(inCall){
+      // Update whichever self-view element is actually visible right now —
+      // the plain camera feed, or the blurred-background canvas's hidden
+      // source video that feeds the segmentation pipeline.
+      var hiddenSrc=$('my-src'); if(hiddenSrc) hiddenSrc.srcObject=combined;
+      if(L.blurLevel==='none'){
+        var mv=$('my-vid'); if(mv) mv.srcObject=combined;
+      }
+      replaceVideoTrackOnPeers(newVideoTrack);
+    } else {
+      $('pre-vid').srcObject=combined;
+    }
+    renderCamDeviceMenu();
+    if(overlayEl) overlayEl.classList.remove('show');
+    toast('Switched camera.');
+  }).catch(function(){
+    if(overlayEl) overlayEl.classList.remove('show');
+    toast('Could not switch to that camera.');
+  });
+}
+$('pre-device-btn').addEventListener('click',function(e){
+  e.stopPropagation();
+  $('pre-device-menu').classList.toggle('show');
+});
+document.addEventListener('click',function(e){
+  if(!$('pre-device-menu').contains(e.target)&&e.target!==$('pre-device-btn')&&!$('pre-device-btn').contains(e.target)){
+    $('pre-device-menu').classList.remove('show');
+  }
+});
+
+// ── Mirror toggle ──
+$('pre-mirror').addEventListener('click',function(){
+  mirrorEnabled=!mirrorEnabled;
+  this.classList.toggle('on2',!mirrorEnabled);
+  $('pre-vid').classList.toggle('cam-no-mirror',!mirrorEnabled);
+  $('pre-canvas').classList.toggle('cam-no-mirror',!mirrorEnabled);
+  toast(mirrorEnabled?'Mirror on.':'Mirror off — this only changes your own preview, not what others see.');
+});
 
 $('blur-chips').addEventListener('click',function(e){
   var chip=e.target.closest('.blur-chip'); if(!chip) return;
@@ -947,6 +1719,9 @@ function enterCall(){
   renderPeople();
   syncWrSetting();
   startTimer();
+  startLocalSpeakingDetector();
+  renderSpeakerView();
+  renderScreenShareView();
   initMesh();
 }
 
@@ -988,7 +1763,7 @@ function updateLobbyStatusText(){
 // ═══════════════════════════════════════════════
 // SIDEBAR PAGE NAVIGATION
 // ═══════════════════════════════════════════════
-var pages=['lobby','notes','transcript','recordings','settings'];
+var pages=['lobby','notes','transcript','recordings','settings','participants-grid'];
 document.querySelectorAll('.sn-item').forEach(function(btn){
   btn.addEventListener('click',function(){
     var page=this.dataset.page;
@@ -996,6 +1771,53 @@ document.querySelectorAll('.sn-item').forEach(function(btn){
     if(page==='chat'){ togglePanel('chat'); return; }
     document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.toggle('active',b===btn); });
     pages.forEach(function(p){ var pv=$('page-'+p); if(pv) pv.classList.toggle('active',p===page); });
+  });
+});
+
+// ═══════════════════════════════════════════════
+// LOBBY SUB-TABS (Lobby / Speaker View / Screen Share View)
+// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// LOBBY CORNER WIDGET (Lobby / Speaker View / Screen Share)
+// Clicking cycles through the three views, in order, looping back to
+// Lobby after Screen Share. Each view's content and the logic deciding
+// what's "active" (who's speaking, who's presenting) is unchanged from
+// before — this only changes how you switch between them.
+// ═══════════════════════════════════════════════
+var lcwOrder=['lobby','speaker','screenshare'];
+var lcwMeta={
+  lobby:{label:'Lobby', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'},
+  speaker:{label:'Speaker View', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>'},
+  screenshare:{label:'Screen Share', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'}
+};
+function setLobbyView(which){
+  $('lcw-btn').dataset.subtab=which;
+  $('lcw-icon').innerHTML=lcwMeta[which].icon;
+  $('lcw-label').textContent=lcwMeta[which].label;
+  document.querySelectorAll('.lcw-dot').forEach(function(d){ d.classList.toggle('active',d.dataset.subtab===which); });
+  document.querySelectorAll('.lobby-subpanel').forEach(function(p){ p.classList.remove('active'); });
+  $('subpanel-'+which).classList.add('active');
+  if(which==='speaker') renderSpeakerView();
+  if(which==='screenshare') renderScreenShareView();
+  refreshLobbyWidgetLiveDot();
+}
+function refreshLobbyWidgetLiveDot(){
+  // Show the pulsing live-dot on the corner button whenever the view
+  // you're NOT currently looking at has something active, so you know
+  // to check even while sitting on a different one.
+  var current=$('lcw-btn').dataset.subtab;
+  var somethingElseIsLive = (current!=='speaker' && !!activeSpeakerId) || (current!=='screenshare' && !!presenterId);
+  $('lcw-btn').classList.toggle('has-live',somethingElseIsLive);
+}
+$('lcw-btn').addEventListener('click',function(){
+  var current=this.dataset.subtab;
+  var nextIndex=(lcwOrder.indexOf(current)+1)%lcwOrder.length;
+  setLobbyView(lcwOrder[nextIndex]);
+});
+document.querySelectorAll('.lcw-dot').forEach(function(dot){
+  dot.addEventListener('click',function(e){
+    e.stopPropagation();
+    setLobbyView(this.dataset.subtab);
   });
 });
 
@@ -1066,6 +1888,15 @@ function buildMyTile(){
 
   var vid=el('video'); vid.id='my-vid'; vid.autoplay=true; vid.muted=true; vid.playsInline=true;
   vid.srcObject=L.outputStream;
+  // The local preview was almost certainly already playing during
+  // precheck, so frames are typically ready immediately — but guard with
+  // the same loadeddata handshake as peer tiles in case it wasn't (e.g.
+  // a camera switch happened right before joining).
+  if(vid.readyState>=2){
+    vid.classList.add('cam-ready');
+  } else {
+    vid.onloadeddata=function(){ vid.classList.add('cam-ready'); };
+  }
 
   var cvs=el('canvas'); cvs.id='my-cvs'; cvs.style.display='none';
 
@@ -1202,6 +2033,7 @@ function startBlurLoop(fromPrecheck){
   else {
     var mv=$('my-vid'); if(mv) mv.style.display='none';
     var myTile=$('my-tile'); if(myTile) myTile.classList.add('mine');
+    canvas.classList.add('cam-ready');
   }
 
   var ctx=canvas.getContext('2d');
@@ -1275,6 +2107,7 @@ function attachSpeakingDetector(pid, stream){
           tile.classList.add('speaking');
           clearTimeout(p.spkTimer);
           p.spkTimer=setTimeout(function(){ tile.classList.remove('speaking'); },600);
+          setActiveSpeaker(pid);
         }
       }
       p._spkRAF=requestAnimationFrame(tick);
@@ -1284,7 +2117,99 @@ function attachSpeakingDetector(pid, stream){
 }
 
 // ═══════════════════════════════════════════════
-// MESH NETWORKING
+// LOCAL SPEAKING DETECTION + CENTRALIZED ACTIVE SPEAKER
+// The per-peer detector above only listens to incoming remote audio; it
+// never told us when the local user themselves was talking. This adds
+// that missing half and keeps one shared "who's currently speaking"
+// value that the Lobby's Speaker View (and anything else) can read,
+// with a short hold so it doesn't flicker every time someone pauses for
+// a breath mid-sentence.
+// ═══════════════════════════════════════════════
+var activeSpeakerId=null;
+var activeSpeakerHoldTimer=null;
+var ACTIVE_SPEAKER_HOLD_MS=1500;
+var localSpeakingAnalyser=null, localSpeakingRAF=null;
+
+function setActiveSpeaker(pid){
+  activeSpeakerId=pid;
+  clearTimeout(activeSpeakerHoldTimer);
+  activeSpeakerHoldTimer=setTimeout(function(){
+    activeSpeakerId=null;
+    renderSpeakerView();
+  },ACTIVE_SPEAKER_HOLD_MS);
+  renderSpeakerView();
+}
+
+function startLocalSpeakingDetector(){
+  if(localSpeakingRAF) return; // already running
+  try{
+    var ctx=getAudioCtx(); if(!ctx||!L.stream) return;
+    var track=L.stream.getAudioTracks()[0]; if(!track) return;
+    var srcStream=new MediaStream([track]);
+    var src=ctx.createMediaStreamSource(srcStream);
+    var an=ctx.createAnalyser(); an.fftSize=256; an.smoothingTimeConstant=0.3;
+    src.connect(an);
+    localSpeakingAnalyser=an;
+    var buf=new Uint8Array(an.frequencyBinCount);
+    function tick(){
+      an.getByteFrequencyData(buf);
+      var sum=0; for(var i=0;i<buf.length;i++) sum+=buf[i];
+      var avg=sum/buf.length;
+      if(avg>8 && Me.micOn){ setActiveSpeaker('me'); }
+      localSpeakingRAF=requestAnimationFrame(tick);
+    }
+    tick();
+  }catch(e){ console.warn('Local speaking detector failed:',e); }
+}
+
+// ═══════════════════════════════════════════════
+// SPEAKER VIEW (Lobby sub-tab) — mirrors whoever activeSpeakerId points to.
+// Reuses one persistent <video> element across renders rather than
+// rebuilding it every time someone starts talking, so switching speakers
+// doesn't cause a visible flicker.
+// ═══════════════════════════════════════════════
+var speakerViewVideoEl=null;
+function ensureSpeakerViewVideoEl(){
+  if(speakerViewVideoEl) return speakerViewVideoEl;
+  var host=$('speaker-tile-host');
+  var v=el('video'); v.autoplay=true; v.muted=true; v.playsInline=true;
+  v.className='sv-mirror-source';
+  host.appendChild(v);
+  speakerViewVideoEl=v;
+  return v;
+}
+function renderSpeakerView(){
+  var activeWrap=$('speaker-view-active'), emptyWrap=$('speaker-view-empty');
+  var host=$('speaker-tile-host');
+
+  if(!activeSpeakerId){
+    activeWrap.style.display='none';
+    emptyWrap.style.display='flex';
+    host.classList.remove('is-speaking');
+    refreshLobbyWidgetLiveDot();
+    return;
+  }
+
+  activeWrap.style.display='flex';
+  emptyWrap.style.display='none';
+  host.classList.add('is-speaking');
+  refreshLobbyWidgetLiveDot();
+
+  var video=ensureSpeakerViewVideoEl();
+  if(activeSpeakerId==='me'){
+    video.srcObject=L.outputStream;
+    video.classList.toggle('sv-mirror-source',mirrorEnabled);
+    $('speaker-view-name-txt').textContent=Me.name+' (you)';
+  } else {
+    var p=peers.get(activeSpeakerId);
+    if(!p){ activeSpeakerId=null; renderSpeakerView(); return; }
+    video.srcObject=p.stream||null;
+    video.classList.remove('sv-mirror-source');
+    $('speaker-view-name-txt').textContent=p.name;
+  }
+}
+
+
 // ═══════════════════════════════════════════════
 function hostId(){ return 'meetly-'+R.id+'-host'; }
 
@@ -1396,6 +2321,9 @@ function admitPeer(conn,name){
   registerPeer(conn.peer,{conn:conn,name:name,micOn:true});
   broadcastRoster();
   callPeer(conn.peer);
+  // Give the new person whatever's already on the whiteboard, since they
+  // otherwise have no way to know it exists until someone draws again.
+  if(wbObjects.length>0){ conn.send({type:'wb-sync',objects:wbObjects}); }
 }
 function broadcastRoster(){
   var roster=[]; peers.forEach(function(p,pid){ roster.push({id:pid,name:p.name}); });
@@ -1409,7 +2337,10 @@ function meshFanOut(roster){
       return;
     }
     var conn=myPeer.connect(entry.id,{reliable:true});
-    conn.on('open',function(){ conn.send({type:'hello',name:Me.name}); });
+    conn.on('open',function(){
+      conn.send({type:'hello',name:Me.name});
+      if(wbObjects.length>0){ conn.send({type:'wb-sync',objects:wbObjects}); }
+    });
     conn.on('data',function(msg){ routeMsg(entry.id,msg); });
     conn.on('close',function(){ peerLeft(entry.id); });
     registerPeer(entry.id,{conn:conn,name:entry.name,micOn:true});
@@ -1440,8 +2371,17 @@ function wireCall(pid,call){
     var p=peers.get(pid); if(!p) return;
     p.stream=stream;
     if(p.videoEl){
-      p.videoEl.srcObject=stream; p.videoEl.style.display='block';
-      p.emptyEl.style.display='none'; p.lblEl.style.display='flex';
+      p.videoEl.srcObject=stream;
+      p.videoEl.classList.remove('cam-ready');
+      // Reveal the tile only once a real frame has actually decoded —
+      // attaching the MediaStream object can precede visible video by a
+      // noticeable beat (worse on slower connections), which otherwise
+      // shows as a black tile right after someone connects.
+      p.videoEl.onloadeddata=function(){
+        p.emptyEl.style.display='none'; p.lblEl.style.display='flex';
+        p.videoEl.style.display='block';
+        requestAnimationFrame(function(){ p.videoEl.classList.add('cam-ready'); });
+      };
     }
     setStatus('ok','Connected.');
     attachSpeakingDetector(pid,stream);
@@ -1456,7 +2396,7 @@ function registerPeer(pid,opts){
     return ex;
   }
   var parts=buildPeerTile(pid,opts.name||'Guest');
-  var p={conn:opts.conn||null,call:null,name:opts.name||'Guest',micOn:true,handRaised:false,
+  var p={conn:opts.conn||null,call:null,name:opts.name||'Guest',micOn:true,camOn:true,handRaised:false,
          stream:null,analyser:null,spkTimer:null,_spkRAF:null,
          videoEl:parts.videoEl,emptyEl:parts.emptyEl,lblEl:parts.lblEl,tileEl:parts.tileEl,handBadge:parts.handBadge};
   peers.set(pid,p);
@@ -1471,6 +2411,8 @@ function peerLeft(pid){
   peers.delete(pid);
   removePeerTile(pid);
   if(spotlightId===pid) setSpotlight(null);
+  if(presenterId===pid) exitPresentationMode(pid);
+  if(activeSpeakerId===pid){ clearTimeout(activeSpeakerHoldTimer); activeSpeakerId=null; renderSpeakerView(); }
   updateHandQueue();
   reGrid(); renderPeople();
   sysMsg(esc(name)+' left the meeting.');
@@ -1490,6 +2432,9 @@ function routeMsg(fromId,msg){
     case 'mic':
       if(p){ p.micOn=msg.on; updateMicBadge(fromId); renderPeople(); }
       break;
+    case 'cam':
+      if(p){ p.camOn=msg.on; renderPeople(); }
+      break;
     case 'chat':
       addMsg({name:p?p.name:'Someone',text:msg.text,own:false});
       break;
@@ -1502,11 +2447,32 @@ function routeMsg(fromId,msg){
     case 'caption':
       showCaption(p?p.name:'Someone',msg.text,msg.final,fromId);
       break;
-    case 'wb-stroke':
-      receiveWbStroke(msg.stroke);
+    case 'wb-add':
+      wbReceiveAdd(msg.obj);
+      break;
+    case 'wb-update':
+      wbReceiveUpdate(msg.obj);
+      break;
+    case 'wb-delete':
+      wbReceiveDelete(msg.id);
+      break;
+    case 'wb-sync':
+      wbReceiveSync(msg.objects);
       break;
     case 'wb-clear':
-      clearWhiteboard();
+      wbReceiveClear();
+      break;
+    case 'screen-share-start':
+      enterPresentationMode(fromId, p?p.name:'Someone');
+      break;
+    case 'screen-share-stop':
+      exitPresentationMode(fromId);
+      break;
+    case 'presi-cursor':
+      receivePresiCursor(msg.x,msg.y,false);
+      break;
+    case 'presi-cursor-click':
+      receivePresiCursor(msg.x,msg.y,true);
       break;
     case 'mute-request':
       if(Me.micOn){ toggleMic(); $('mic-btn').classList.add('off'); broadcast({type:'mic',on:Me.micOn}); toast('The host muted you.'); }
@@ -1599,7 +2565,49 @@ function renderPeople(){
     }
     body.appendChild(row);
   });
+  renderPplGrid();
 }
+
+// ═══════════════════════════════════════════════
+// PARTICIPANTS VIEW (grid page) — a second, separate presentation of the
+// same roster used by the existing side-panel list. Kept in sync by being
+// called from the same renderPeople() above; this does not replace or
+// alter the existing panel in any way.
+// ═══════════════════════════════════════════════
+function renderPplGrid(){
+  var grid=$('ppl-grid'); if(!grid) return;
+  grid.innerHTML='';
+  grid.appendChild(buildPplCard(Me.name,true,Me.micOn,Me.camOn,R.isHost,myHandRaised));
+  peers.forEach(function(p){
+    grid.appendChild(buildPplCard(p.name,false,p.micOn,p.camOn,false,p.handRaised));
+  });
+}
+function buildPplCard(name,isMe,micOn,camOn,isHost,handRaised){
+  var card=el('div','ppl-card');
+  if(isHost){ var tag=el('span','p-host-tag'); tag.textContent='Host'; card.appendChild(tag); }
+  var av=el('div','av-circle'); av.textContent=initials(name);
+  var nameEl=el('div','ppl-card-name'); nameEl.textContent=name+(isMe?' (You)':'')+(handRaised?' ✋':'');
+  var status=el('div','ppl-card-status');
+  status.innerHTML=
+    '<span class="'+(micOn?'stat-on':'stat-off')+'">'+micSvg(micOn)+'</span>'+
+    '<span class="'+(camOn?'stat-on':'stat-off')+'">'+camSvg(camOn)+'</span>';
+  card.appendChild(av); card.appendChild(nameEl); card.appendChild(status);
+  return card;
+}
+function camSvg(on){
+  return on
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="M9 5h5a2 2 0 0 1 2 2v5m4 4 1.5 1V7l-1.5 1"/></svg>';
+}
+$('rp-grid-view-btn').addEventListener('click',function(){
+  document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('active'); });
+  pages.forEach(function(p){ var pv=$('page-'+p); if(pv) pv.classList.toggle('active',p==='participants-grid'); });
+  renderPplGrid();
+});
+$('pg-back-btn').addEventListener('click',function(){
+  document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.toggle('active',b.dataset.page==='lobby'); });
+  pages.forEach(function(p){ var pv=$('page-'+p); if(pv) pv.classList.toggle('active',p==='lobby'); });
+});
 function micSvg(on){
   return on
     ?'<svg class="mic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/></svg>'
@@ -1747,6 +2755,195 @@ document.addEventListener('click',function(e){
 // LAYOUT: GRID / SPOTLIGHT, PIN
 // ═══════════════════════════════════════════════
 var currentLayout='grid', spotlightId=null;
+var presenterId=null; // null = no one presenting; 'me' or a peer id otherwise
+var layoutBeforePresenting=null;
+
+// ═══════════════════════════════════════════════
+// PRESENTATION MODE (screen sharing)
+// Per the enhancement spec: while someone is sharing their screen, that
+// shared content should occupy ~95-100% of the meeting area and never be
+// pushed aside by active-speaker auto-switching. This works by reusing the
+// existing spotlight/pin mechanism (so the underlying tile/grid logic is
+// unchanged) plus a dedicated CSS state and a guard that blocks the normal
+// speaking-detector from re-triggering layout changes while presenting.
+// ═══════════════════════════════════════════════
+function enterPresentationMode(pid, name){
+  if(presenterId===pid) return; // already presenting, avoid duplicate work
+  if(presenterId===null){ layoutBeforePresenting=currentLayout; }
+  presenterId=pid;
+  currentLayout='spotlight';
+  document.querySelectorAll('#layout-menu button').forEach(function(b){ b.classList.toggle('active-item',b.dataset.layout==='spotlight'); });
+  $('stage').classList.add('layout-spotlight','presenting');
+  setSpotlight(pid);
+  addPresentingBadge(pid);
+  if(pid!=='me') toast((name||'Someone')+' is presenting their screen.');
+  updatePresentationCursorAvailability();
+  renderScreenShareView();
+}
+function exitPresentationMode(pid){
+  if(presenterId!==pid) return; // a stale stop signal for someone who isn't the active presenter
+  removePresentingBadge();
+  presenterId=null;
+  $('stage').classList.remove('presenting');
+  if(layoutBeforePresenting==='grid'){
+    currentLayout='grid';
+    document.querySelectorAll('#layout-menu button').forEach(function(b){ b.classList.toggle('active-item',b.dataset.layout==='grid'); });
+    $('stage').classList.remove('layout-spotlight');
+    reorganizeForGrid();
+  }
+  layoutBeforePresenting=null;
+  updatePresentationCursorAvailability();
+  renderScreenShareView();
+}
+function addPresentingBadge(pid){
+  removePresentingBadge();
+  var tile = pid==='me' ? $('my-tile') : $('tile-'+pid);
+  if(!tile) return;
+  var badge=el('div','presenting-badge'); badge.id='presenting-badge-el';
+  badge.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Presenting';
+  tile.appendChild(badge);
+}
+function removePresentingBadge(){
+  var existing=$('presenting-badge-el');
+  if(existing) existing.remove();
+}
+
+// ═══════════════════════════════════════════════
+// SCREEN SHARE VIEW (Lobby sub-tab) — mirrors the existing presenterId
+// state. Like Speaker View, this reuses one persistent <video> element
+// so toggling between the empty state and an active share doesn't
+// rebuild anything unnecessarily.
+// ═══════════════════════════════════════════════
+var ssvVideoEl=null;
+function ensureSsvVideoEl(){
+  if(ssvVideoEl) return ssvVideoEl;
+  var v=el('video'); v.autoplay=true; v.muted=true; v.playsInline=true;
+  $('ssv-stage').appendChild(v);
+  ssvVideoEl=v;
+  return v;
+}
+function renderScreenShareView(){
+  if(!presenterId){
+    $('ssv-active').classList.remove('show');
+    $('ssv-empty').classList.add('show');
+    refreshLobbyWidgetLiveDot();
+    return;
+  }
+  $('ssv-empty').classList.remove('show');
+  $('ssv-active').classList.add('show');
+  refreshLobbyWidgetLiveDot();
+  var video=ensureSsvVideoEl();
+  if(presenterId==='me'){
+    video.srcObject=L.outputStream;
+    $('ssv-presenter-name').textContent=Me.name+' (you)';
+    $('ssv-presenter-av').textContent=initials(Me.name);
+  } else {
+    var p=peers.get(presenterId);
+    if(!p){ return; }
+    video.srcObject=p.stream||null;
+    $('ssv-presenter-name').textContent=p.name;
+    $('ssv-presenter-av').textContent=initials(p.name);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// PRESENTATION CURSOR
+// A deliberately oversized, high-contrast cursor shown only while screen
+// sharing or while the whiteboard is open, so a presenter's pointer stays
+// visible even against plain white slides. While presenting, the local
+// mouse position over the active tile is broadcast (throttled) so viewers
+// see the same cursor; on the whiteboard, the cursor is purely local since
+// drawn strokes already sync the meaningful information.
+// ═══════════════════════════════════════════════
+var presiCursorEl=null, presiCursorActive=false, presiLastSendTime=0;
+var PRESI_SEND_INTERVAL_MS=60; // throttle outgoing cursor broadcasts
+
+function updatePresentationCursorAvailability(){
+  var shouldBeActive = (presenterId==='me') || $('wb-wrap').classList.contains('show');
+  if(shouldBeActive && !presiCursorActive){ activatePresentationCursor(); }
+  else if(!shouldBeActive && presiCursorActive){ deactivatePresentationCursor(); }
+}
+
+function activatePresentationCursor(){
+  presiCursorActive=true;
+  ensurePresiCursorEl();
+  var target = presenterId==='me' ? $('my-tile') : null;
+  if($('wb-wrap').classList.contains('show')){
+    target=document.querySelector('.wb-canvas-wrap');
+  }
+  if(target){
+    target.style.cursor='none';
+    target.addEventListener('pointermove',onPresiPointerMove);
+    target.addEventListener('pointerdown',onPresiPointerDown);
+    target.addEventListener('pointerleave',onPresiPointerLeave);
+    presiCursorEl._target=target;
+  }
+}
+function deactivatePresentationCursor(){
+  presiCursorActive=false;
+  if(presiCursorEl){ presiCursorEl.classList.remove('show'); }
+  var target=presiCursorEl&&presiCursorEl._target;
+  if(target){
+    target.style.cursor='';
+    target.removeEventListener('pointermove',onPresiPointerMove);
+    target.removeEventListener('pointerdown',onPresiPointerDown);
+    target.removeEventListener('pointerleave',onPresiPointerLeave);
+  }
+}
+function ensurePresiCursorEl(){
+  if(presiCursorEl) return presiCursorEl;
+  var c=el('div','presi-cursor');
+  c.innerHTML='<svg viewBox="0 0 24 24"><path class="pc-arrow" d="M5 3l14 8.5-6 1.2-2.6 5.8L5 3z"/></svg>';
+  document.body.appendChild(c);
+  presiCursorEl=c;
+  return c;
+}
+function placeCursorAt(targetEl, normX, normY, ripple){
+  var c=ensurePresiCursorEl();
+  var rect=targetEl.getBoundingClientRect();
+  var x=rect.left+normX*rect.width, y=rect.top+normY*rect.height;
+  c.style.left=x+'px'; c.style.top=y+'px';
+  c.classList.add('show');
+  if(ripple){
+    var r=el('div','presi-ripple');
+    r.style.left=x+'px'; r.style.top=y+'px';
+    document.body.appendChild(r);
+    setTimeout(function(){ if(r.parentNode) r.parentNode.removeChild(r); },600);
+  }
+}
+function onPresiPointerMove(e){
+  var target=e.currentTarget;
+  var rect=target.getBoundingClientRect();
+  var nx=(e.clientX-rect.left)/rect.width, ny=(e.clientY-rect.top)/rect.height;
+  placeCursorAt(target,nx,ny,false);
+  // Only broadcast while actively screen sharing (not for whiteboard, where
+  // drawn strokes already carry the meaningful shared information and
+  // every extra broadcast would be redundant data-channel traffic).
+  if(presenterId==='me'){
+    var now=Date.now();
+    if(now-presiLastSendTime>PRESI_SEND_INTERVAL_MS){
+      presiLastSendTime=now;
+      broadcast({type:'presi-cursor',x:nx,y:ny});
+    }
+  }
+}
+function onPresiPointerDown(e){
+  var target=e.currentTarget;
+  var rect=target.getBoundingClientRect();
+  var nx=(e.clientX-rect.left)/rect.width, ny=(e.clientY-rect.top)/rect.height;
+  placeCursorAt(target,nx,ny,true);
+  if(presenterId==='me'){ broadcast({type:'presi-cursor-click',x:nx,y:ny}); }
+}
+function onPresiPointerLeave(){
+  if(presiCursorEl) presiCursorEl.classList.remove('show');
+}
+function receivePresiCursor(x,y,ripple){
+  if(presenterId===null || presenterId==='me') return; // I'm not viewing someone else's presentation
+  var target=$('tile-'+presenterId);
+  if(!target) return;
+  presiCursorActive=true; // ensure render path is considered active for viewers too
+  placeCursorAt(target,x,y,ripple);
+}
 $('mm-layout').addEventListener('click',function(e){
   e.stopPropagation();
   $('more-menu').classList.remove('show');
@@ -1851,61 +3048,620 @@ document.addEventListener('click',function(e){
 });
 
 // ═══════════════════════════════════════════════
-// WHITEBOARD
+// WHITEBOARD (vector object model)
+// Every shape, stroke, text box, sticky note, and table cell is its own
+// object in wbObjects, not raw pixels. This is what makes Select/move/
+// delete possible — the old version only ever drew pixels onto a canvas,
+// which can't be picked back up and moved. The whole board is redrawn
+// from this array whenever it changes; sync over the data channel sends
+// object-level operations (add/update/delete/clear) rather than stroke
+// coordinates, so everyone's copy of wbObjects stays identical.
 // ═══════════════════════════════════════════════
-var wbCtx=null, wbDrawing=false, wbColor='#ef4444', wbTool='pen', wbLast=null;
-$('mm-wb').addEventListener('click',function(){ $('wb-wrap').classList.add('show'); setupWhiteboard(); });
-$('wb-close-btn').addEventListener('click',function(){ $('wb-wrap').classList.remove('show'); });
-function setupWhiteboard(){
-  var canvas=$('wb-canvas'); var wrap=canvas.parentElement;
-  var hasSize=wrap.clientWidth>0 && wrap.clientHeight>0;
-  if(!wbCtx){ wbCtx=canvas.getContext('2d'); wbCtx.lineCap='round'; wbCtx.lineJoin='round'; }
-  if(hasSize && (canvas.width!==wrap.clientWidth || canvas.height!==wrap.clientHeight)){
-    var prev=null;
-    if(canvas.width>0&&canvas.height>0){ try{ prev=canvas.toDataURL(); }catch(e){} }
-    canvas.width=wrap.clientWidth; canvas.height=wrap.clientHeight;
-    wbCtx.lineCap='round'; wbCtx.lineJoin='round';
-    if(prev){ var img=new Image(); img.onload=function(){ wbCtx.drawImage(img,0,0,canvas.width,canvas.height); }; img.src=prev; }
+var wbObjects=[];           // {id,type,...type-specific fields,color,strokeWidth}
+var wbSelectedId=null;
+var wbTool='pen';
+var wbColor='#ef4444';
+var wbStrokeWidth=3;
+var wbCanvas=null, wbCtx=null;
+var wbHistory=[], wbHistoryIndex=-1; // snapshots of wbObjects for undo/redo
+var wbDrawingObj=null;       // the in-progress object while pointer is down
+var wbDragState=null;        // {id, offsetX, offsetY} while moving a selected object
+var wbResizeState=null;      // {id, handle} while resizing a selected object
+var wbIdCounter=0;
+function wbNewId(){ return 'wb'+(++wbIdCounter)+'-'+Math.random().toString(36).slice(2,7); }
+
+function wbSetup(){
+  wbCanvas=$('wb-canvas');
+  var wrap=wbCanvas.parentElement;
+  if(!wbCtx) wbCtx=wbCanvas.getContext('2d');
+  var w=wrap.clientWidth, h=wrap.clientHeight;
+  if(w>0 && h>0 && (wbCanvas.width!==w || wbCanvas.height!==h)){
+    wbCanvas.width=w; wbCanvas.height=h;
   }
+  wbRender();
 }
-window.addEventListener('resize',function(){
-  if($('wb-wrap').classList.contains('show')) setupWhiteboard();
+
+// ── Open / close the whiteboard ──
+$('mm-wb').addEventListener('click',function(){
+  $('wb-wrap').classList.add('show');
+  wbSetup();
+  if(wbHistory.length===0) wbPushHistory(); // baseline so the first action is undoable
+  updatePresentationCursorAvailability();
+});
+$('wb-close-btn').addEventListener('click',function(){
+  $('wb-wrap').classList.remove('show');
+  updatePresentationCursorAvailability();
+});
+
+// ── Tool selection (left rail) ──
+function wbSetTool(tool){
+  wbTool=tool;
+  wbSelectedId=null;
+  document.querySelectorAll('.wb-rail-btn[data-tool]').forEach(function(b){ b.classList.toggle('active',b.dataset.tool===tool); });
+  $('wb-shapes-menu').classList.remove('show');
+  $('wb-canvas').style.cursor = (tool==='select') ? 'default' : (tool==='text'?'text':'crosshair');
+  wbRender();
+}
+document.querySelectorAll('.wb-rail-btn[data-tool]').forEach(function(btn){
+  btn.addEventListener('click',function(e){
+    var tool=this.dataset.tool;
+    if(tool==='shapes'){
+      e.stopPropagation();
+      $('wb-shapes-menu').classList.toggle('show');
+      return;
+    }
+    wbSetTool(tool);
+  });
+});
+$('wb-shapes-menu').addEventListener('click',function(e){
+  var btn=e.target.closest('button[data-tool]'); if(!btn) return;
+  wbSetTool(btn.dataset.tool);
+  // Reflect the chosen shape as the active-looking rail icon so it's
+  // clear which one is live, rather than leaving "Shapes" unselected.
+  document.querySelectorAll('.wb-rail-btn[data-tool="shapes"]').forEach(function(b){ b.classList.add('active'); });
+});
+document.addEventListener('click',function(e){
+  if(!$('wb-shapes-menu').contains(e.target) && !e.target.closest('.wb-rail-btn[data-tool="shapes"]')){
+    $('wb-shapes-menu').classList.remove('show');
+  }
+  if(!$('wb-more-menu').contains(e.target) && e.target.id!=='wb-more-btn' && !e.target.closest('#wb-more-btn')){
+    $('wb-more-menu').classList.remove('show');
+  }
+});
+$('wb-more-btn').addEventListener('click',function(e){
+  e.stopPropagation();
+  $('wb-more-menu').classList.toggle('show');
 });
 document.querySelectorAll('.wb-color').forEach(function(btn){
   btn.addEventListener('click',function(){
     document.querySelectorAll('.wb-color').forEach(function(b){ b.classList.remove('active'); });
     this.classList.add('active');
-    wbColor=this.dataset.color; wbTool='pen';
-    document.querySelectorAll('.wb-tool-btn[data-tool]').forEach(function(b){ b.classList.toggle('active',b.dataset.tool==='pen'); });
+    wbColor=this.dataset.color;
   });
 });
-$('wb-pen-btn').addEventListener('click',function(){ wbTool='pen'; this.classList.add('active'); $('wb-erase-btn').classList.remove('active'); });
-$('wb-erase-btn').addEventListener('click',function(){ wbTool='erase'; this.classList.add('active'); $('wb-pen-btn').classList.remove('active'); });
-$('wb-clear-btn').addEventListener('click',function(){ clearWhiteboard(); broadcast({type:'wb-clear'}); });
-function clearWhiteboard(){ if(wbCtx) wbCtx.clearRect(0,0,$('wb-canvas').width,$('wb-canvas').height); }
-function wbPointerPos(e){
-  var canvas=$('wb-canvas'), rect=canvas.getBoundingClientRect();
-  var x=(e.touches?e.touches[0].clientX:e.clientX)-rect.left;
-  var y=(e.touches?e.touches[0].clientY:e.clientY)-rect.top;
-  return {x:x/rect.width,y:y/rect.height};
+$('wb-width-slider').addEventListener('input',function(){ wbStrokeWidth=parseInt(this.value,10); });
+
+// ── Undo / Redo / Clear All (both the top-bar and rail copies stay synced) ──
+function wbUpdateUndoRedoButtons(){
+  var canUndo=wbHistoryIndex>0, canRedo=wbHistoryIndex<wbHistory.length-1;
+  [$('wb-undo-btn'),$('wb-undo-rail-btn')].forEach(function(b){ b.disabled=!canUndo; });
+  [$('wb-redo-btn'),$('wb-redo-rail-btn')].forEach(function(b){ b.disabled=!canRedo; });
 }
-function wbDrawSegment(x0,y0,x1,y1,color,tool){
-  var canvas=$('wb-canvas'); if(!wbCtx) return;
-  var w=canvas.width,h=canvas.height;
-  wbCtx.globalCompositeOperation = tool==='erase' ? 'destination-out' : 'source-over';
-  wbCtx.strokeStyle=color; wbCtx.lineWidth = tool==='erase' ? 18 : 3;
-  wbCtx.beginPath(); wbCtx.moveTo(x0*w,y0*h); wbCtx.lineTo(x1*w,y1*h); wbCtx.stroke();
-}
-$('wb-canvas').addEventListener('pointerdown',function(e){ wbDrawing=true; wbLast=wbPointerPos(e); });
-$('wb-canvas').addEventListener('pointermove',function(e){
-  if(!wbDrawing) return;
-  var pos=wbPointerPos(e);
-  wbDrawSegment(wbLast.x,wbLast.y,pos.x,pos.y,wbColor,wbTool);
-  broadcast({type:'wb-stroke',stroke:{x0:wbLast.x,y0:wbLast.y,x1:pos.x,y1:pos.y,color:wbColor,tool:wbTool}});
-  wbLast=pos;
+$('wb-undo-btn').addEventListener('click',wbUndo);
+$('wb-undo-rail-btn').addEventListener('click',wbUndo);
+$('wb-redo-btn').addEventListener('click',wbRedo);
+$('wb-redo-rail-btn').addEventListener('click',wbRedo);
+$('wb-clear-btn').addEventListener('click',function(){
+  if(wbObjects.length===0) return;
+  if(!confirm('Clear the whole whiteboard for everyone? This can\'t be undone once you confirm.')) return;
+  wbObjects=[]; wbSelectedId=null;
+  wbHistory=[]; wbHistoryIndex=-1;
+  wbPushHistory();
+  broadcast({type:'wb-clear'});
+  wbRender();
 });
-['pointerup','pointerleave'].forEach(function(ev){ $('wb-canvas').addEventListener(ev,function(){ wbDrawing=false; }); });
-function receiveWbStroke(s){ if(!wbCtx) setupWhiteboard(); wbDrawSegment(s.x0,s.y0,s.x1,s.y1,s.color,s.tool); }
+
+// ── Zoom (visual scale of the canvas only; drawing coordinates stay
+// normalized 0-1 either way, so zoom never desyncs the shared board). ──
+var wbZoom=1;
+function wbApplyZoom(){
+  wbCanvas.style.transform='scale('+wbZoom+')';
+  wbCanvas.style.transformOrigin='top left';
+  $('wb-zoom-label').textContent=Math.round(wbZoom*100)+'%';
+}
+$('wb-zoom-in-btn').addEventListener('click',function(){ wbZoom=Math.min(2,wbZoom+0.1); wbApplyZoom(); });
+$('wb-zoom-out-btn').addEventListener('click',function(){ wbZoom=Math.max(0.5,wbZoom-0.1); wbApplyZoom(); });
+
+// ── Fullscreen ──
+$('wb-fullscreen-btn').addEventListener('click',function(){
+  var el=$('wb-wrap');
+  if(!document.fullscreenElement){
+    if(el.requestFullscreen) el.requestFullscreen().catch(function(){});
+  } else {
+    document.exitFullscreen().catch(function(){});
+  }
+});
+document.addEventListener('fullscreenchange',function(){
+  if(document.fullscreenElement===$('wb-wrap')) setTimeout(wbSetup,50); // re-measure canvas at new size
+});
+
+window.addEventListener('resize',function(){
+  if($('wb-wrap').classList.contains('show')) wbSetup();
+});
+
+// ── History (undo/redo) ──
+function wbPushHistory(){
+  // Truncate any redo branch, then store a deep-enough copy of the
+  // current object list. Cheap to JSON round-trip at whiteboard scale.
+  wbHistory=wbHistory.slice(0,wbHistoryIndex+1);
+  wbHistory.push(JSON.parse(JSON.stringify(wbObjects)));
+  wbHistoryIndex=wbHistory.length-1;
+  if(wbHistory.length>60){ wbHistory.shift(); wbHistoryIndex--; }
+  wbUpdateUndoRedoButtons();
+}
+function wbUndo(){
+  if(wbHistoryIndex<=0) return;
+  wbHistoryIndex--;
+  wbObjects=JSON.parse(JSON.stringify(wbHistory[wbHistoryIndex]));
+  wbSelectedId=null;
+  wbRender();
+  broadcast({type:'wb-sync',objects:wbObjects});
+  wbUpdateUndoRedoButtons();
+}
+function wbRedo(){
+  if(wbHistoryIndex>=wbHistory.length-1) return;
+  wbHistoryIndex++;
+  wbObjects=JSON.parse(JSON.stringify(wbHistory[wbHistoryIndex]));
+  wbSelectedId=null;
+  wbRender();
+  broadcast({type:'wb-sync',objects:wbObjects});
+  wbUpdateUndoRedoButtons();
+}
+
+// ── Rendering ──
+function wbRender(){
+  if(!wbCtx) return;
+  var w=wbCanvas.width, h=wbCanvas.height;
+  wbCtx.clearRect(0,0,w,h);
+  wbObjects.forEach(function(obj){ wbDrawObject(obj,w,h); });
+  if(wbSelectedId){
+    var sel=wbObjects.find(function(o){ return o.id===wbSelectedId; });
+    if(sel) wbDrawSelectionHandles(sel,w,h);
+  }
+}
+function wbDrawObject(obj,w,h){
+  wbCtx.save();
+  wbCtx.strokeStyle=obj.color||'#1a1a1a';
+  wbCtx.fillStyle=obj.color||'#1a1a1a';
+  wbCtx.lineWidth=obj.strokeWidth||3;
+  wbCtx.lineCap='round'; wbCtx.lineJoin='round';
+
+  if(obj.type==='stroke'){
+    if(obj.erase) wbCtx.globalCompositeOperation='destination-out';
+    if(obj.points.length>0){
+      wbCtx.beginPath();
+      wbCtx.moveTo(obj.points[0].x*w,obj.points[0].y*h);
+      for(var i=1;i<obj.points.length;i++){ wbCtx.lineTo(obj.points[i].x*w,obj.points[i].y*h); }
+      wbCtx.stroke();
+    }
+  } else if(obj.type==='rect'){
+    wbCtx.strokeRect(obj.x*w,obj.y*h,obj.w*w,obj.h*h);
+  } else if(obj.type==='ellipse'){
+    wbCtx.beginPath();
+    wbCtx.ellipse((obj.x+obj.w/2)*w,(obj.y+obj.h/2)*h,Math.abs(obj.w*w/2),Math.abs(obj.h*h/2),0,0,Math.PI*2);
+    wbCtx.stroke();
+  } else if(obj.type==='line'||obj.type==='arrow'){
+    wbCtx.beginPath();
+    wbCtx.moveTo(obj.x1*w,obj.y1*h);
+    wbCtx.lineTo(obj.x2*w,obj.y2*h);
+    wbCtx.stroke();
+    if(obj.type==='arrow'){
+      var ang=Math.atan2((obj.y2-obj.y1)*h,(obj.x2-obj.x1)*w);
+      var hx=obj.x2*w, hy=obj.y2*h, headLen=12+obj.strokeWidth;
+      wbCtx.beginPath();
+      wbCtx.moveTo(hx,hy);
+      wbCtx.lineTo(hx-headLen*Math.cos(ang-Math.PI/6),hy-headLen*Math.sin(ang-Math.PI/6));
+      wbCtx.lineTo(hx-headLen*Math.cos(ang+Math.PI/6),hy-headLen*Math.sin(ang+Math.PI/6));
+      wbCtx.closePath();
+      wbCtx.fill();
+    }
+  } else if(obj.type==='text'){
+    wbCtx.font=(obj.fontSize||22)+'px -apple-system,Segoe UI,Roboto,sans-serif';
+    wbCtx.textBaseline='top';
+    (obj.text||'').split('\n').forEach(function(line,i){
+      wbCtx.fillText(line,obj.x*w,obj.y*h+i*(obj.fontSize||22)*1.25);
+    });
+  } else if(obj.type==='sticky'){
+    wbCtx.fillStyle=obj.color||'#fde68a';
+    wbCtx.fillRect(obj.x*w,obj.y*h,obj.w*w,obj.h*h);
+    wbCtx.strokeStyle='rgba(0,0,0,.12)'; wbCtx.lineWidth=1;
+    wbCtx.strokeRect(obj.x*w,obj.y*h,obj.w*w,obj.h*h);
+    wbCtx.fillStyle='#1a1a1a';
+    wbCtx.font='14px -apple-system,Segoe UI,Roboto,sans-serif';
+    wbCtx.textBaseline='top';
+    var pad=10, maxW=obj.w*w-pad*2;
+    wbWrapText(obj.text||'',obj.x*w+pad,obj.y*h+pad,maxW,18);
+  } else if(obj.type==='table'){
+    var cols=obj.cols||3, rows=obj.rows||3;
+    var cw=obj.w*w/cols, rh=obj.h*h/rows;
+    wbCtx.strokeStyle=obj.color||'#1a1a1a'; wbCtx.lineWidth=1.5;
+    wbCtx.strokeRect(obj.x*w,obj.y*h,obj.w*w,obj.h*h);
+    for(var c=1;c<cols;c++){ wbCtx.beginPath(); wbCtx.moveTo(obj.x*w+c*cw,obj.y*h); wbCtx.lineTo(obj.x*w+c*cw,obj.y*h+obj.h*h); wbCtx.stroke(); }
+    for(var r=1;r<rows;r++){ wbCtx.beginPath(); wbCtx.moveTo(obj.x*w,obj.y*h+r*rh); wbCtx.lineTo(obj.x*w+obj.w*w,obj.y*h+r*rh); wbCtx.stroke(); }
+    if(obj.cells){
+      wbCtx.fillStyle='#1a1a1a'; wbCtx.font='12px -apple-system,Segoe UI,Roboto,sans-serif'; wbCtx.textBaseline='middle';
+      obj.cells.forEach(function(cellText,idx){
+        if(!cellText) return;
+        var cc=idx%cols, rr=Math.floor(idx/cols);
+        wbCtx.fillText(cellText,obj.x*w+cc*cw+6,obj.y*h+rr*rh+rh/2,cw-12);
+      });
+    }
+  } else if(obj.type==='image'){
+    var img=wbImageCache[obj.src];
+    if(!img){
+      img=new Image();
+      img.onload=function(){ wbRender(); };
+      img.src=obj.src;
+      wbImageCache[obj.src]=img;
+    } else if(img.complete){
+      wbCtx.drawImage(img,obj.x*w,obj.y*h,obj.w*w,obj.h*h);
+    }
+  }
+  wbCtx.restore();
+}
+var wbImageCache={};
+function wbWrapText(text,x,y,maxWidth,lineHeight){
+  var words=text.split(' '), line='', yy=y;
+  for(var i=0;i<words.length;i++){
+    var test=line+words[i]+' ';
+    if(wbCtx.measureText(test).width>maxWidth && line!==''){
+      wbCtx.fillText(line,x,yy); line=words[i]+' '; yy+=lineHeight;
+    } else { line=test; }
+  }
+  wbCtx.fillText(line,x,yy);
+}
+function wbDrawSelectionHandles(obj,w,h){
+  var b=wbObjBounds(obj,w,h);
+  wbCtx.save();
+  wbCtx.strokeStyle='#3b82f6'; wbCtx.lineWidth=1.5; wbCtx.setLineDash([5,4]);
+  wbCtx.strokeRect(b.x-4,b.y-4,b.w+8,b.h+8);
+  wbCtx.setLineDash([]);
+  if(obj.type!=='stroke' && obj.type!=='line' && obj.type!=='arrow'){
+    wbCtx.fillStyle='#3b82f6';
+    [[b.x,b.y],[b.x+b.w,b.y],[b.x,b.y+b.h],[b.x+b.w,b.y+b.h]].forEach(function(p){
+      wbCtx.fillRect(p[0]-5,p[1]-5,10,10);
+    });
+  }
+  wbCtx.restore();
+}
+
+// ── Bounds (in pixels) for any object type, used for both drawing the
+// selection outline and hit-testing clicks/drags. ──
+function wbObjBounds(obj,w,h){
+  if(obj.type==='stroke'){
+    var xs=obj.points.map(function(p){return p.x*w;}), ys=obj.points.map(function(p){return p.y*h;});
+    var minX=Math.min.apply(null,xs), maxX=Math.max.apply(null,xs);
+    var minY=Math.min.apply(null,ys), maxY=Math.max.apply(null,ys);
+    return {x:minX,y:minY,w:Math.max(maxX-minX,1),h:Math.max(maxY-minY,1)};
+  }
+  if(obj.type==='line'||obj.type==='arrow'){
+    var x1=obj.x1*w,y1=obj.y1*h,x2=obj.x2*w,y2=obj.y2*h;
+    return {x:Math.min(x1,x2),y:Math.min(y1,y2),w:Math.max(Math.abs(x2-x1),1),h:Math.max(Math.abs(y2-y1),1)};
+  }
+  if(obj.type==='text'){
+    wbCtx.font=(obj.fontSize||22)+'px -apple-system,Segoe UI,Roboto,sans-serif';
+    var lines=(obj.text||' ').split('\n');
+    var widest=0; lines.forEach(function(l){ widest=Math.max(widest,wbCtx.measureText(l).width); });
+    return {x:obj.x*w,y:obj.y*h,w:Math.max(widest,20),h:lines.length*(obj.fontSize||22)*1.25};
+  }
+  // rect, ellipse, sticky, table, image all carry x/y/w/h directly
+  return {x:obj.x*w,y:obj.y*h,w:obj.w*w,h:obj.h*h};
+}
+
+function wbHitTest(px,py,w,h){
+  // Topmost (last-drawn) object under the point wins, mirroring normal
+  // z-order expectations.
+  for(var i=wbObjects.length-1;i>=0;i--){
+    var obj=wbObjects[i];
+    if(obj.type==='stroke'){
+      var hit=obj.points.some(function(p){ var dx=p.x*w-px, dy=p.y*h-py; return Math.sqrt(dx*dx+dy*dy)<Math.max(10,obj.strokeWidth+6); });
+      if(hit) return obj;
+      continue;
+    }
+    var b=wbObjBounds(obj,w,h);
+    if(px>=b.x-4 && px<=b.x+b.w+4 && py>=b.y-4 && py<=b.y+b.h+4) return obj;
+  }
+  return null;
+}
+function wbHandleAt(px,py,w,h,obj){
+  if(!obj || obj.type==='stroke'||obj.type==='line'||obj.type==='arrow') return null;
+  var b=wbObjBounds(obj,w,h);
+  var corners={ nw:[b.x,b.y], ne:[b.x+b.w,b.y], sw:[b.x,b.y+b.h], se:[b.x+b.w,b.y+b.h] };
+  for(var key in corners){
+    var c=corners[key];
+    if(Math.abs(px-c[0])<9 && Math.abs(py-c[1])<9) return key;
+  }
+  return null;
+}
+
+// ── Pointer position helpers ──
+function wbPx(e){
+  var rect=wbCanvas.getBoundingClientRect();
+  return { x:(e.touches?e.touches[0].clientX:e.clientX)-rect.left, y:(e.touches?e.touches[0].clientY:e.clientY)-rect.top };
+}
+function wbNorm(px,py){ return { x:px/wbCanvas.width, y:py/wbCanvas.height }; }
+
+// ── Core pointer interaction ──
+var wbPointerDownPx=null;
+$('wb-canvas').addEventListener('pointerdown',function(e){
+  var pos=wbPx(e);
+  wbPointerDownPx=pos;
+  var w=wbCanvas.width,h=wbCanvas.height;
+
+  if(wbTool==='select'){
+    var selObj = wbSelectedId ? wbObjects.find(function(o){return o.id===wbSelectedId;}) : null;
+    var handle = selObj ? wbHandleAt(pos.x,pos.y,w,h,selObj) : null;
+    if(handle){
+      wbResizeState={ id:selObj.id, handle:handle, startBounds:wbObjBounds(selObj,w,h) };
+      return;
+    }
+    var hit=wbHitTest(pos.x,pos.y,w,h);
+    wbSelectedId = hit ? hit.id : null;
+    if(hit){
+      var b=wbObjBounds(hit,w,h);
+      wbDragState={ id:hit.id, offsetX:pos.x-b.x, offsetY:pos.y-b.y };
+    }
+    wbRender();
+    return;
+  }
+
+  if(wbTool==='text'){
+    var norm=wbNorm(pos.x,pos.y);
+    openWbTextEditor(norm.x,norm.y,null);
+    return;
+  }
+  if(wbTool==='sticky'){
+    var n2=wbNorm(pos.x,pos.y);
+    var stickyObj={ id:wbNewId(), type:'sticky', x:n2.x, y:n2.y, w:0.16, h:0.13, color:wbStickyColor, text:'' };
+    wbObjects.push(stickyObj);
+    wbPushHistory();
+    broadcast({type:'wb-add',obj:stickyObj});
+    wbRender();
+    openWbStickyEditor(stickyObj.id);
+    return;
+  }
+  if(wbTool==='table'){
+    var n3=wbNorm(pos.x,pos.y);
+    var tableObj={ id:wbNewId(), type:'table', x:n3.x, y:n3.y, w:0.28, h:0.18, cols:3, rows:3, color:wbColor, cells:[] };
+    wbObjects.push(tableObj);
+    wbPushHistory();
+    broadcast({type:'wb-add',obj:tableObj});
+    wbRender();
+    return;
+  }
+  if(wbTool==='image'){
+    wbTriggerImageUpload(pos);
+    return;
+  }
+
+  // Drawing tools: pen, erase, rect, ellipse, line, arrow
+  var norm=wbNorm(pos.x,pos.y);
+  if(wbTool==='pen'||wbTool==='erase'){
+    wbDrawingObj={ id:wbNewId(), type:'stroke', points:[norm], color:wbColor, strokeWidth: wbTool==='erase'?18:wbStrokeWidth, erase: wbTool==='erase' };
+  } else if(wbTool==='rect'||wbTool==='ellipse'){
+    wbDrawingObj={ id:wbNewId(), type:wbTool, x:norm.x, y:norm.y, w:0, h:0, color:wbColor, strokeWidth:wbStrokeWidth };
+  } else if(wbTool==='line'||wbTool==='arrow'){
+    wbDrawingObj={ id:wbNewId(), type:wbTool, x1:norm.x, y1:norm.y, x2:norm.x, y2:norm.y, color:wbColor, strokeWidth:wbStrokeWidth };
+  }
+});
+
+$('wb-canvas').addEventListener('pointermove',function(e){
+  var pos=wbPx(e);
+  var w=wbCanvas.width,h=wbCanvas.height;
+
+  if(wbResizeState){
+    var obj=wbObjects.find(function(o){return o.id===wbResizeState.id;});
+    if(obj){ wbApplyResize(obj,wbResizeState.handle,pos,w,h); wbRender(); }
+    return;
+  }
+  if(wbDragState){
+    var obj2=wbObjects.find(function(o){return o.id===wbDragState.id;});
+    if(obj2){ wbApplyDrag(obj2,pos,wbDragState,w,h); wbRender(); }
+    return;
+  }
+  if(!wbDrawingObj) return;
+  var norm=wbNorm(pos.x,pos.y);
+  if(wbDrawingObj.type==='stroke'){
+    wbDrawingObj.points.push(norm);
+  } else if(wbDrawingObj.type==='rect'||wbDrawingObj.type==='ellipse'){
+    wbDrawingObj.w=norm.x-wbDrawingObj.x; wbDrawingObj.h=norm.y-wbDrawingObj.y;
+  } else if(wbDrawingObj.type==='line'||wbDrawingObj.type==='arrow'){
+    wbDrawingObj.x2=norm.x; wbDrawingObj.y2=norm.y;
+  }
+  wbRenderWithPreview();
+});
+
+['pointerup','pointerleave'].forEach(function(ev){
+  $('wb-canvas').addEventListener(ev,function(){
+    if(wbResizeState){
+      var rid=wbResizeState.id;
+      wbResizeState=null; wbPushHistory(); broadcastWbObjectById(rid);
+    }
+    if(wbDragState){
+      var did=wbDragState.id;
+      wbDragState=null; wbPushHistory(); broadcastWbObjectById(did);
+    }
+    if(wbDrawingObj){
+      // Normalize rect/ellipse so width/height are always positive,
+      // matching how a person actually expects to drag a shape out in
+      // any direction.
+      if((wbDrawingObj.type==='rect'||wbDrawingObj.type==='ellipse') && (wbDrawingObj.w<0||wbDrawingObj.h<0)){
+        if(wbDrawingObj.w<0){ wbDrawingObj.x+=wbDrawingObj.w; wbDrawingObj.w=Math.abs(wbDrawingObj.w); }
+        if(wbDrawingObj.h<0){ wbDrawingObj.y+=wbDrawingObj.h; wbDrawingObj.h=Math.abs(wbDrawingObj.h); }
+      }
+      // Skip near-zero-size accidental clicks (a stray tap shouldn't
+      // leave behind an invisible object).
+      var tooSmall = (wbDrawingObj.type==='stroke' && wbDrawingObj.points.length<2)
+        || ((wbDrawingObj.type==='rect'||wbDrawingObj.type==='ellipse') && Math.abs(wbDrawingObj.w)<0.005 && Math.abs(wbDrawingObj.h)<0.005)
+        || ((wbDrawingObj.type==='line'||wbDrawingObj.type==='arrow') && Math.abs(wbDrawingObj.x2-wbDrawingObj.x1)<0.005 && Math.abs(wbDrawingObj.y2-wbDrawingObj.y1)<0.005);
+      if(!tooSmall){
+        wbObjects.push(wbDrawingObj);
+        wbPushHistory();
+        broadcast({type:'wb-add',obj:wbDrawingObj});
+      }
+      wbDrawingObj=null;
+      wbRender();
+    }
+  });
+});
+
+function wbRenderWithPreview(){
+  wbRender();
+  if(wbDrawingObj) wbDrawObject(wbDrawingObj,wbCanvas.width,wbCanvas.height);
+}
+
+function wbApplyDrag(obj,pos,drag,w,h){
+  var newX=(pos.x-drag.offsetX)/w, newY=(pos.y-drag.offsetY)/h;
+  if(obj.type==='stroke'){
+    var b=wbObjBounds(obj,w,h);
+    var dx=(pos.x-drag.offsetX-b.x)/w, dy=(pos.y-drag.offsetY-b.y)/h;
+    obj.points=obj.points.map(function(p){ return {x:p.x+dx,y:p.y+dy}; });
+  } else if(obj.type==='line'||obj.type==='arrow'){
+    var bb=wbObjBounds(obj,w,h);
+    var ddx=(pos.x-drag.offsetX-bb.x)/w, ddy=(pos.y-drag.offsetY-bb.y)/h;
+    obj.x1+=ddx; obj.y1+=ddy; obj.x2+=ddx; obj.y2+=ddy;
+  } else {
+    obj.x=newX; obj.y=newY;
+  }
+}
+function wbApplyResize(obj,handle,pos,w,h){
+  var norm=wbNorm(pos.x,pos.y);
+  var b=wbResizeState.startBounds;
+  var right=(b.x+b.w)/w, bottom=(b.y+b.h)/h, left=b.x/w, top=b.y/h;
+  if(handle==='se'){ obj.w=norm.x-obj.x; obj.h=norm.y-obj.y; }
+  else if(handle==='sw'){ obj.w=right-norm.x; obj.x=norm.x; obj.h=norm.y-obj.y; }
+  else if(handle==='ne'){ obj.w=norm.x-obj.x; obj.h=bottom-norm.y; obj.y=norm.y; }
+  else if(handle==='nw'){ obj.w=right-norm.x; obj.x=norm.x; obj.h=bottom-norm.y; obj.y=norm.y; }
+  obj.w=Math.max(obj.w,0.02); obj.h=Math.max(obj.h,0.02);
+}
+
+function broadcastWbObjectById(id){
+  var obj=wbObjects.find(function(o){return o.id===id;});
+  if(obj) broadcast({type:'wb-update',obj:obj});
+}
+
+// ── Text tool: an inline editable overlay positioned over the canvas,
+// committed into a real text object on blur. ──
+function openWbTextEditor(normX,normY,existingId){
+  var w=wbCanvas.width,h=wbCanvas.height;
+  var existing = existingId ? wbObjects.find(function(o){return o.id===existingId;}) : null;
+  var ta=el('textarea');
+  ta.value = existing ? existing.text : '';
+  ta.style.cssText='position:absolute;left:'+(normX*w)+'px;top:'+(normY*h)+'px;'
+    +'min-width:120px;min-height:30px;background:transparent;border:1px dashed #3b82f6;'
+    +'color:'+wbColor+';font-size:22px;font-family:-apple-system,Segoe UI,Roboto,sans-serif;'
+    +'outline:none;resize:both;padding:2px;z-index:50;';
+  wbCanvas.parentElement.appendChild(ta);
+  ta.focus();
+  ta.addEventListener('blur',function commit(){
+    var text=ta.value.trim();
+    ta.removeEventListener('blur',commit);
+    ta.remove();
+    if(!text){ return; }
+    if(existing){
+      existing.text=text;
+      wbPushHistory(); broadcast({type:'wb-update',obj:existing}); wbRender();
+    } else {
+      var obj={ id:wbNewId(), type:'text', x:normX, y:normY, text:text, color:wbColor, fontSize:22 };
+      wbObjects.push(obj);
+      wbPushHistory(); broadcast({type:'wb-add',obj:obj}); wbRender();
+    }
+  });
+}
+
+// ── Sticky note tool: created immediately on click (so it's visible to
+// everyone right away), then an inline editor for the text. ──
+var wbStickyColor='#fde68a';
+function openWbStickyEditor(id){
+  var obj=wbObjects.find(function(o){return o.id===id;}); if(!obj) return;
+  var w=wbCanvas.width,h=wbCanvas.height;
+  var ta=el('textarea');
+  ta.value=obj.text||'';
+  ta.placeholder='Type a note…';
+  ta.style.cssText='position:absolute;left:'+(obj.x*w+10)+'px;top:'+(obj.y*h+10)+'px;'
+    +'width:'+(obj.w*w-20)+'px;height:'+(obj.h*h-20)+'px;background:transparent;border:none;'
+    +'color:#1a1a1a;font-size:14px;font-family:-apple-system,Segoe UI,Roboto,sans-serif;'
+    +'outline:none;resize:none;padding:0;z-index:50;';
+  wbCanvas.parentElement.appendChild(ta);
+  ta.focus();
+  ta.addEventListener('blur',function commit(){
+    ta.removeEventListener('blur',commit);
+    obj.text=ta.value;
+    ta.remove();
+    wbPushHistory(); broadcast({type:'wb-update',obj:obj}); wbRender();
+  });
+}
+
+// ── Image tool: load a local file as a data URL (kept local — never
+// uploaded anywhere — and broadcast as part of the object so everyone's
+// board shows the same picture). ──
+function wbTriggerImageUpload(pos){
+  var input=el('input'); input.type='file'; input.accept='image/*';
+  input.addEventListener('change',function(){
+    var file=input.files[0]; if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(){
+      var img=new Image();
+      img.onload=function(){
+        var norm=wbNorm(pos.x,pos.y);
+        var maxW=0.3, aspect=img.height/img.width;
+        var obj={ id:wbNewId(), type:'image', x:norm.x, y:norm.y, w:maxW, h:maxW*aspect, src:reader.result };
+        wbObjects.push(obj);
+        wbPushHistory();
+        broadcast({type:'wb-add',obj:obj});
+        wbRender();
+      };
+      img.src=reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  input.click();
+}
+
+// ── Delete selected object (Delete/Backspace key, or the toolbar). ──
+function wbDeleteSelected(){
+  if(!wbSelectedId) return;
+  var id=wbSelectedId;
+  wbObjects=wbObjects.filter(function(o){ return o.id!==id; });
+  wbSelectedId=null;
+  wbPushHistory();
+  broadcast({type:'wb-delete',id:id});
+  wbRender();
+}
+document.addEventListener('keydown',function(e){
+  if(!$('wb-wrap').classList.contains('show')) return;
+  if(document.activeElement && document.activeElement.tagName==='TEXTAREA') return; // editing text/sticky
+  if((e.key==='Delete'||e.key==='Backspace') && wbTool==='select'){ e.preventDefault(); wbDeleteSelected(); }
+  if((e.ctrlKey||e.metaKey) && e.key==='z' && !e.shiftKey){ e.preventDefault(); wbUndo(); }
+  if((e.ctrlKey||e.metaKey) && (e.key==='y' || (e.key==='z'&&e.shiftKey))){ e.preventDefault(); wbRedo(); }
+});
+
+// ── Receiving remote whiteboard operations ──
+function wbReceiveAdd(obj){ if(!wbObjects.some(function(o){return o.id===obj.id;})){ wbObjects.push(obj); wbRender(); } }
+function wbReceiveUpdate(obj){
+  var idx=wbObjects.findIndex(function(o){return o.id===obj.id;});
+  if(idx>=0){ wbObjects[idx]=obj; } else { wbObjects.push(obj); }
+  wbRender();
+}
+function wbReceiveDelete(id){
+  wbObjects=wbObjects.filter(function(o){return o.id!==id;});
+  if(wbSelectedId===id) wbSelectedId=null;
+  wbRender();
+}
+function wbReceiveSync(objects){ wbObjects=objects; wbSelectedId=null; wbRender(); }
+function wbReceiveClear(){ wbObjects=[]; wbSelectedId=null; wbHistory=[]; wbHistoryIndex=-1; wbUpdateUndoRedoButtons(); wbRender(); }
+
+
 
 // ═══════════════════════════════════════════════
 // NOISE SUPPRESSION (basic gain gate)
@@ -2095,7 +3851,17 @@ $('mic-btn').addEventListener('click',function(){
   broadcast({type:'mic',on:Me.micOn});
   renderPeople();
 });
-$('cam-btn').addEventListener('click',function(){ toggleCam(); this.classList.toggle('off',!Me.camOn); });
+$('cam-btn').addEventListener('click',function(){ toggleCam(); this.classList.toggle('off',!Me.camOn); broadcast({type:'cam',on:Me.camOn}); renderPeople(); });
+$('cam-switch-caret').addEventListener('click',function(e){
+  e.stopPropagation();
+  if(camDevices.length<=1){ enumerateCameras(); }
+  $('call-device-menu').classList.toggle('show');
+});
+document.addEventListener('click',function(e){
+  if(!$('call-device-menu').contains(e.target)&&e.target!==$('cam-switch-caret')&&!$('cam-switch-caret').contains(e.target)){
+    $('call-device-menu').classList.remove('show');
+  }
+});
 $('mm-blur').addEventListener('click',function(){
   if(L.blurLevel==='none'){
     setBlurLevel('soft',false);
@@ -2111,6 +3877,7 @@ $('mm-blur').addEventListener('click',function(){
 $('set-blur-toggle').addEventListener('click',function(){ $('mm-blur').click(); });
 $('screen-btn').addEventListener('click',function(){
   if(L.screenOn){ stopScreen(); return; }
+  if(presenterId && presenterId!=='me'){ toast('Someone else is already presenting. Wait for them to stop, or ask them to.'); return; }
   if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia){ toast('Screen sharing not supported in this browser.'); return; }
   navigator.mediaDevices.getDisplayMedia({video:{frameRate:30},audio:false}).then(function(ss){
     L.screenStream=ss; L.screenOn=true;
@@ -2122,6 +3889,8 @@ $('screen-btn').addEventListener('click',function(){
     $('screen-btn').classList.add('on2');
     track.addEventListener('ended',stopScreen);
     toast('Sharing your screen.');
+    broadcast({type:'screen-share-start'});
+    enterPresentationMode('me', Me.name);
   }).catch(function(){});
 });
 function stopScreen(){
@@ -2135,6 +3904,8 @@ function stopScreen(){
   if(L.blurLevel==='none'){ if(mv){ mv.srcObject=L.stream; mv.style.display='block'; } if(mc) mc.style.display='none'; }
   else { if(mv) mv.style.display='none'; if(mc) mc.style.display='block'; }
   toast('Stopped screen sharing.');
+  broadcast({type:'screen-share-stop'});
+  exitPresentationMode('me');
 }
 
 // ═══════════════════════════════════════════════
