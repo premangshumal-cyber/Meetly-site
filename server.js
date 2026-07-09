@@ -119,7 +119,7 @@ function createOtpCode() {
 
 function getMailer() {
   const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT || 587);
+  const port = Number(process.env.SMTP_PORT || 465);
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
@@ -130,8 +130,15 @@ function getMailer() {
   return nodemailer.createTransport({
     host,
     port,
-    secure: process.env.SMTP_SECURE === 'true' || port === 465,
-    auth: { user, pass }
+    secure: true,
+    family: 4,
+    auth: {
+      user,
+      pass
+    },
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 30000
   });
 }
 
