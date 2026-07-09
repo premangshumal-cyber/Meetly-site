@@ -24,6 +24,30 @@ a{color:var(--accent);text-decoration:none;}
 .screen{position:fixed;inset:0;display:none;}
 .screen.active{display:flex;}
 
+/* ═══════════ AUTH ═══════════ */
+#s-auth-email,#s-auth-otp{align-items:center;justify-content:center;padding:20px;background:
+  radial-gradient(ellipse 900px 600px at 15% 90%, rgba(255,122,48,.05), transparent),
+  radial-gradient(ellipse 700px 500px at 88% 15%, rgba(167,139,250,.06), transparent),
+  var(--bg);overflow-y:auto;}
+.auth-card{width:100%;max-width:440px;background:rgba(22,24,28,.94);border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.35);}
+.auth-head{margin-bottom:18px;text-align:center;}
+.auth-head h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px;}
+.auth-head p{font-size:13px;color:var(--text-dim);line-height:1.6;}
+.auth-email-pill{margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:14px;border:1px solid var(--border);background:var(--panel-2);font-size:12px;color:var(--text-dim);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.auth-otp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:14px 0 8px;}
+.auth-otp-grid input{height:52px;text-align:center;font-size:23px;font-weight:700;border-radius:10px;border:1px solid var(--border);background:var(--panel-2);color:var(--text);}
+.auth-otp-grid input:focus{border-color:var(--accent);}
+.auth-row{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap;}
+.auth-row .btn{flex:1;min-width:130px;}
+.auth-meta{margin-top:10px;font-size:12px;color:var(--text-dim);display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.auth-link{font-size:12.5px;color:var(--accent);cursor:pointer;border:none;background:none;padding:0;}
+.auth-link:disabled{color:var(--text-faint);cursor:not-allowed;}
+.user-chip{display:none;align-items:center;gap:6px;padding:7px 11px;border-radius:18px;border:1px solid var(--border);background:var(--panel-2);font-size:12px;color:var(--text-dim);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+@media(max-width:560px){
+  .auth-card{padding:22px;}
+  .auth-otp-grid input{height:48px;font-size:21px;}
+}
+
 /* ═══════════ LANDING ═══════════ */
 #s-land{align-items:stretch;justify-content:flex-start;flex-direction:column;overflow-y:auto;padding:0;background:
   radial-gradient(ellipse 900px 600px at 15% 90%, rgba(255,122,48,.05), transparent),
@@ -661,8 +685,51 @@ a{color:var(--accent);text-decoration:none;}
 </head>
 <body>
 
+<div id="s-auth-email" class="screen active">
+  <div class="auth-card">
+    <div class="auth-head">
+      <h2>Welcome to Meetly</h2>
+      <p>Sign in with your email and we'll send a secure one-time code.</p>
+    </div>
+    <label class="f-lbl" for="auth-email">Email address</label>
+    <input id="auth-email" class="inp" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+    <div id="auth-email-err" class="err"></div>
+    <div class="auth-row">
+      <button class="btn primary" id="send-otp-btn" style="width:100%;">Send OTP</button>
+    </div>
+    <p class="hint">By continuing, you agree to receive a one-time verification code for secure access.</p>
+  </div>
+</div>
+
+<div id="s-auth-otp" class="screen">
+  <div class="auth-card">
+    <div class="auth-head">
+      <h2>Verify your email</h2>
+      <p>Enter the 6-digit code sent to your email.</p>
+      <span class="auth-email-pill" id="auth-email-pill"></span>
+    </div>
+    <div class="auth-otp-grid" id="otp-inputs">
+      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
+      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
+      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
+      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
+      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
+      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" autocomplete="one-time-code">
+    </div>
+    <div id="auth-otp-err" class="err"></div>
+    <div class="auth-meta">
+      <span id="otp-countdown">Code expires in 05:00</span>
+      <button class="auth-link" id="otp-resend-btn" disabled>Resend OTP in 60s</button>
+    </div>
+    <div class="auth-row">
+      <button class="btn" id="otp-back-btn">Use another email</button>
+      <button class="btn primary" id="verify-otp-btn">Verify & Continue</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════ LANDING ═══════════ -->
-<div id="s-land" class="screen active">
+<div id="s-land" class="screen">
 
   <div class="land-topbar">
     <div class="land-logo">
@@ -671,11 +738,13 @@ a{color:var(--accent);text-decoration:none;}
     </div>
     <div class="land-topbar-right">
       <div class="lib-status"><span class="dot pulse" id="lib-dot"></span><span id="lib-txt">loading…</span></div>
+      <span class="user-chip" id="auth-user-chip"></span>
       <div class="lang-pick" id="lang-pick" title="Language selection — UI text is currently English-only in this build">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         English
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
+      <button class="btn" id="auth-logout-btn" style="display:none;flex:0 0 auto;padding:8px 12px;">Logout</button>
     </div>
   </div>
 
@@ -1438,8 +1507,160 @@ var myPeer = null;
 var hostConn = null;
 var recordings = []; // {name, url, size, duration}
 
-var SCREENS = ['s-land','s-wait','s-pre','s-call'];
+var SCREENS = ['s-auth-email','s-auth-otp','s-land','s-wait','s-pre','s-call'];
 function goTo(id){ SCREENS.forEach(function(s){ $(s).classList.toggle('active', s===id); }); }
+
+// ═══════════════════════════════════════════════
+// AUTH (EMAIL OTP)
+// ═══════════════════════════════════════════════
+var Auth = {
+  user:null,
+  email:'',
+  otpExpireAt:0,
+  resendAt:0,
+  timer:null
+};
+
+function authEmailError(msg){ var b=$('auth-email-err'); b.textContent=msg||''; b.style.display=msg?'block':'none'; }
+function authOtpError(msg){ var b=$('auth-otp-err'); b.textContent=msg||''; b.style.display=msg?'block':'none'; }
+function otpDigits(){ return Array.prototype.slice.call(document.querySelectorAll('.otp-digit')); }
+function resetOtpInputs(){ otpDigits().forEach(function(inp){ inp.value=''; }); var d=otpDigits(); if(d.length) d[0].focus(); }
+function otpValue(){ return otpDigits().map(function(i){ return i.value; }).join(''); }
+function extractNameFromEmail(email){ var local=(email||'').split('@')[0]||''; return local.replace(/[._-]+/g,' ').replace(/\b\w/g,function(c){ return c.toUpperCase(); }).trim(); }
+function setAuthUserUI(email){
+  var chip=$('auth-user-chip');
+  if(email){ chip.style.display='inline-flex'; chip.textContent='Signed in: '+email; }
+  else { chip.style.display='none'; chip.textContent=''; }
+  $('auth-logout-btn').style.display=email?'inline-flex':'none';
+}
+function stopAuthTimer(){ if(Auth.timer){ clearInterval(Auth.timer); Auth.timer=null; } }
+function updateOtpMeta(){
+  var now=Date.now();
+  var remain=Math.max(0,Auth.otpExpireAt-now);
+  var min=String(Math.floor(remain/60000)).padStart(2,'0');
+  var sec=String(Math.floor((remain%60000)/1000)).padStart(2,'0');
+  $('otp-countdown').textContent='Code expires in '+min+':'+sec;
+
+  var resendBtn=$('otp-resend-btn');
+  var resendRemain=Math.max(0,Auth.resendAt-now);
+  if(resendRemain===0){ resendBtn.disabled=false; resendBtn.textContent='Resend OTP'; }
+  else { resendBtn.disabled=true; resendBtn.textContent='Resend OTP in '+Math.ceil(resendRemain/1000)+'s'; }
+}
+function startOtpTimer(){ stopAuthTimer(); updateOtpMeta(); Auth.timer=setInterval(updateOtpMeta,1000); }
+async function api(path,opts){
+  var cfg=Object.assign({credentials:'include',headers:{'Content-Type':'application/json'}},opts||{});
+  if(cfg.body&&typeof cfg.body!=='string') cfg.body=JSON.stringify(cfg.body);
+  var res=await fetch(path,cfg);
+  var data=null;
+  try{ data=await res.json(); }catch(e){ data={}; }
+  if(!res.ok){
+    var err=new Error((data&&data.error)||'Request failed');
+    err.status=res.status;
+    err.data=data||{};
+    throw err;
+  }
+  return data||{};
+}
+function requireAuthScreen(){ goTo('s-auth-email'); $('auth-email').focus(); }
+
+$('send-otp-btn').addEventListener('click',async function(){
+  var email=$('auth-email').value.trim().toLowerCase();
+  authEmailError('');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ authEmailError('Please enter a valid email address.'); $('auth-email').focus(); return; }
+
+  this.disabled=true;
+  var oldTxt=this.textContent;
+  this.textContent='Sending…';
+  try{
+    await api('/send-otp',{method:'POST',body:{email:email}});
+    Auth.email=email;
+    Auth.otpExpireAt=Date.now()+5*60*1000;
+    Auth.resendAt=Date.now()+60*1000;
+    $('auth-email-pill').textContent=email;
+    resetOtpInputs();
+    authOtpError('');
+    goTo('s-auth-otp');
+    startOtpTimer();
+  }catch(e){
+    authEmailError(e.message||'Could not send OTP. Please try again.');
+  }finally{
+    this.disabled=false;
+    this.textContent=oldTxt;
+  }
+});
+
+$('verify-otp-btn').addEventListener('click',async function(){
+  var code=otpValue();
+  authOtpError('');
+  if(!/^\d{6}$/.test(code)){ authOtpError('Please enter the 6-digit OTP.'); return; }
+
+  this.disabled=true;
+  var oldTxt=this.textContent;
+  this.textContent='Verifying…';
+  try{
+    var data=await api('/verify-otp',{method:'POST',body:{email:Auth.email,otp:code}});
+    Auth.user=data.user;
+    setAuthUserUI(Auth.user&&Auth.user.email);
+    var suggested=extractNameFromEmail(Auth.user&&Auth.user.email||'');
+    if(suggested && !$('disp-name').value.trim()){
+      $('disp-name').value=suggested;
+      $('disp-name-jointab').value=suggested;
+      syncLandName(suggested);
+    }
+    stopAuthTimer();
+    goTo('s-land');
+  }catch(e){
+    authOtpError(e.message||'Verification failed.');
+  }finally{
+    this.disabled=false;
+    this.textContent=oldTxt;
+  }
+});
+
+$('otp-resend-btn').addEventListener('click',function(){ if(this.disabled) return; $('send-otp-btn').click(); });
+$('otp-back-btn').addEventListener('click',function(){ stopAuthTimer(); goTo('s-auth-email'); $('auth-email').focus(); });
+$('auth-logout-btn').addEventListener('click',async function(){
+  this.disabled=true;
+  try{ await api('/logout',{method:'POST'}); }catch(e){}
+  Auth.user=null; Auth.email=''; setAuthUserUI('');
+  requireAuthScreen();
+  this.disabled=false;
+});
+
+otpDigits().forEach(function(input,index,all){
+  input.addEventListener('input',function(){
+    this.value=(this.value||'').replace(/\D/g,'').slice(-1);
+    if(this.value && index<all.length-1) all[index+1].focus();
+  });
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Backspace' && !this.value && index>0){ all[index-1].focus(); }
+    if(e.key==='ArrowLeft' && index>0){ e.preventDefault(); all[index-1].focus(); }
+    if(e.key==='ArrowRight' && index<all.length-1){ e.preventDefault(); all[index+1].focus(); }
+  });
+});
+$('otp-inputs').addEventListener('paste',function(e){
+  var pasted=(e.clipboardData||window.clipboardData).getData('text')||'';
+  var digits=pasted.replace(/\D/g,'').slice(0,6).split('');
+  if(!digits.length) return;
+  e.preventDefault();
+  otpDigits().forEach(function(inp,idx){ inp.value=digits[idx]||''; });
+  var next=otpDigits()[Math.min(digits.length,5)];
+  if(next) next.focus();
+});
+
+window.addEventListener('load',function(){
+  api('/me').then(function(data){
+    Auth.user=data.user;
+    setAuthUserUI(Auth.user&&Auth.user.email);
+    var suggested=extractNameFromEmail(Auth.user&&Auth.user.email||'');
+    if(suggested && !$('disp-name').value.trim()){
+      $('disp-name').value=suggested;
+      $('disp-name-jointab').value=suggested;
+      syncLandName(suggested);
+    }
+    goTo('s-land');
+  }).catch(function(){ requireAuthScreen(); });
+});
 
 // ═══════════════════════════════════════════════
 // LANDING
@@ -1469,12 +1690,14 @@ function landErr(m){ var b=$('land-err'); b.textContent=m; b.style.display='bloc
 function preErr(m){ var b=$('pre-err'); b.textContent=m; b.style.display='block'; }
 
 $('create-btn').addEventListener('click',function(){
+  if(!Auth.user){ requireAuthScreen(); return; }
   var n=$('disp-name').value.trim();
   if(!n){ landErr('Enter your name first.'); $('disp-name').focus(); return; }
   Me.name=n; R.isHost=true; R.id=randRoom(); R.wr=$('wr-toggle').checked;
   setQueryRoom(R.id); enterPrecheck();
 });
 $('join-btn').addEventListener('click',function(){
+  if(!Auth.user){ requireAuthScreen(); return; }
   var n=$('disp-name').value.trim(), c=$('join-code').value.trim();
   if(!n){ landErr('Enter your name first.'); $('disp-name').focus(); return; }
   if(!c){ landErr('Enter a meeting code.'); $('join-code').focus(); return; }
