@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const crypto = require('crypto');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -10,6 +11,7 @@ const helmet = require('helmet');
 
 const app = express();
 const ROOT_DIR = __dirname;
+const INDEX_HTML = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
 const PORT = Number(process.env.PORT || 3000);
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(48).toString('hex');
 const JWT_COOKIE = 'meetly_session';
@@ -29,7 +31,25 @@ app.disable('x-powered-by');
 app.set('trust proxy', 1);
 app.use(
   helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://cdnjs.cloudflare.com',
+          'https://cdn.jsdelivr.net'
+        ],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'blob:'],
+        connectSrc: ["'self'"],
+        mediaSrc: ["'self'", 'blob:'],
+        fontSrc: ["'self'", 'data:'],
+        objectSrc: ["'none'"],
+        frameAncestors: ["'none'"],
+        upgradeInsecureRequests: []
+      }
+    },
     crossOriginEmbedderPolicy: false
   })
 );
@@ -75,6 +95,19 @@ function isValidOtp(otp) {
 function getRequesterIp(req) {
   return req.ip || req.socket?.remoteAddress || 'unknown';
 }
+
+function rateLimitMiddleware(prefix, limit, windowMs) {
+  return function rateLimitHandler(req, res, next) {
+    const ip = getRequesterIp(req);
+    const key = `${prefix}:${ip}`;
+    if (hitRateLimit(key, limit, windowMs)) {
+      return res.status(429).json({ error: 'Too many requests. Please try again shortly.' });
+    }
+    return next();
+  };
+}
+
+app.use(rateLimitMiddleware('global', 300, 60 * 1000));
 
 function hashOtp(otp, salt) {
   return crypto.scryptSync(String(otp), salt, 32).toString('hex');
@@ -157,8 +190,8 @@ function getSessionUser(req) {
   }
 }
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(ROOT_DIR, 'index.html'));
+app.get('/', rateLimitMiddleware('page', 120, 60 * 1000), (req, res) => {
+  res.type('html').send(INDEX_HTML);
 });
 
 app.post('/send-otp', async (req, res) => {
