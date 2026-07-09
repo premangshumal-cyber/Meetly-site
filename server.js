@@ -137,20 +137,38 @@ function getMailer() {
 
 async function sendOtpEmail(email, otp) {
   const transporter = getMailer();
+
   if (!transporter) {
-    const err = new Error('Email service is not configured.');
-    err.code = 'EMAIL_UNAVAILABLE';
-    throw err;
+    throw new Error("Mailer not configured");
   }
 
-  const from = process.env.FROM_EMAIL || process.env.SMTP_USER;
-  await transporter.sendMail({
-    from,
-    to: email,
-    subject: 'Your Meetly verification code',
-    text: `Your Meetly verification code is ${otp}. It expires in 5 minutes.`,
-    html: `<div style="font-family:Arial,sans-serif;line-height:1.5;color:#111"><h2>Meetly verification code</h2><p>Your one-time code is:</p><p style="font-size:30px;letter-spacing:6px;font-weight:700">${otp}</p><p>This code expires in 5 minutes.</p><p>If you did not request this code, you can ignore this email.</p></div>`
-  });
+  console.log("===== SMTP CONFIG =====");
+  console.log("HOST:", process.env.SMTP_HOST);
+  console.log("PORT:", process.env.SMTP_PORT);
+  console.log("SECURE:", process.env.SMTP_SECURE);
+  console.log("USER:", process.env.SMTP_USER);
+  console.log("FROM:", process.env.FROM_EMAIL);
+
+  try {
+    await transporter.verify();
+    console.log("SMTP connection successful");
+
+    const info = await transporter.sendMail({
+      from: process.env.FROM_EMAIL || process.env.SMTP_USER,
+      to: email,
+      subject: "Meetly Verification Code",
+      text: `Your OTP is ${otp}`,
+      html: `<h2>Your OTP is <b>${otp}</b></h2>`
+    });
+
+    console.log("EMAIL SENT");
+    console.log(info);
+
+  } catch (err) {
+    console.error("SMTP ERROR");
+    console.error(err);
+    throw err;
+  }
 }
 
 function issueSession(res, user) {
@@ -228,13 +246,17 @@ app.post('/send-otp', async (req, res) => {
   try {
     await sendOtpEmail(email, otp);
     return res.status(200).json({ message: 'If the email is reachable, a verification code has been sent.', resendAfterSeconds: 60 });
-  } catch (error) {
+  }catch (error) {
+    console.error("OTP ERROR:");
+    console.error(error);
+
     otpByEmail.delete(email);
-    if (error.code === 'EMAIL_UNAVAILABLE') {
-      return res.status(503).json({ error: 'Email service is unavailable. Please contact support.' });
-    }
-    return res.status(500).json({ error: 'Failed to send verification code. Please try again.' });
-  }
+
+    return res.status(500).json({
+        error: error.message,
+        stack: error.stack
+    });
+}
 });
 
 app.post('/verify-otp', (req, res) => {
