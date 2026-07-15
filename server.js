@@ -13,6 +13,10 @@ const app = express();
 const ROOT_DIR = __dirname;
 const INDEX_HTML = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
 const PORT = Number(process.env.PORT || 3000);
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  // Without a persistent secret, every server restart invalidates all sessions.
+  console.warn('WARNING: JWT_SECRET is not set. Sessions will not survive a server restart.');
+}
 const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(48).toString('hex');
 const JWT_COOKIE = 'meetly_session';
 
@@ -146,34 +150,28 @@ async function sendOtpEmail(email, otp) {
   const transporter = getMailer();
 
   if (!transporter) {
-    throw new Error("Mailer not configured");
+    // Server-side only â€” never expose "mailer not configured" details to the client.
+    console.error('sendOtpEmail: SMTP is not configured (missing SMTP_HOST/SMTP_USER/SMTP_PASS).');
+    throw new Error('Mailer not configured');
   }
-
-  console.log("===== SMTP CONFIG =====");
-  console.log("HOST:", process.env.SMTP_HOST);
-  console.log("PORT:", process.env.SMTP_PORT);
-  console.log("SECURE:", process.env.SMTP_SECURE);
-  console.log("USER:", process.env.SMTP_USER);
-  console.log("FROM:", process.env.FROM_EMAIL);
 
   try {
     await transporter.verify();
-    console.log("SMTP connection successful");
 
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: process.env.FROM_EMAIL || process.env.SMTP_USER,
       to: email,
-      subject: "Meetly Verification Code",
+      subject: 'Meetly Verification Code',
       text: `Your OTP is ${otp}`,
       html: `<h2>Your OTP is <b>${otp}</b></h2>`
     });
 
-    console.log("EMAIL SENT");
-    console.log(info);
-
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`OTP email sent to ${email}`);
+    }
   } catch (err) {
-    console.error("SMTP ERROR");
-    console.error(err);
+    // Log full detail server-side only; never forward this to the client.
+    console.error('SMTP ERROR while sending OTP:', err);
     throw err;
   }
 }
@@ -253,17 +251,17 @@ app.post('/send-otp', async (req, res) => {
   try {
     await sendOtpEmail(email, otp);
     return res.status(200).json({ message: 'If the email is reachable, a verification code has been sent.', resendAfterSeconds: 60 });
-  }catch (error) {
-    console.error("OTP ERROR:");
-    console.error(error);
+  } catch (error) {
+    // Log full detail server-side only. Never send error.message/stack to the client â€”
+    // that leaks internal config/paths and is a security risk.
+    console.error('OTP send failed for', email, error);
 
     otpByEmail.delete(email);
 
-    return res.status(500).json({
-        error: error.message,
-        stack: error.stack
+    return res.status(502).json({
+      error: 'We could not send the verification code right now. Please try again shortly.'
     });
-}
+  }
 });
 
 app.post('/verify-otp', (req, res) => {
