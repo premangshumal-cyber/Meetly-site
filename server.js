@@ -121,6 +121,13 @@ function createOtpCode() {
   return String(crypto.randomInt(0, 1_000_000)).padStart(OTP_LENGTH, '0');
 }
 
+function parseBoolEnv(value) {
+  if (typeof value !== 'string') {
+    return false;
+  }
+  return /^(1|true|yes|on)$/i.test(value.trim());
+}
+
 function getMailer() {
   const host = process.env.SMTP_HOST;
   const port = Number(process.env.SMTP_PORT || 465);
@@ -131,10 +138,12 @@ function getMailer() {
     return null;
   }
 
+  const secure = process.env.SMTP_SECURE ? parseBoolEnv(process.env.SMTP_SECURE) : port === 465;
+
   return nodemailer.createTransport({
     host,
     port,
-    secure: true,
+    secure,
     family: 4,
     auth: {
       user,
@@ -150,7 +159,11 @@ async function sendOtpEmail(email, otp) {
   const transporter = getMailer();
 
   if (!transporter) {
-    // Server-side only â€” never expose "mailer not configured" details to the client.
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`OTP fallback (dev only): ${email} -> ${otp}`);
+      return;
+    }
+    // Server-side only — never expose "mailer not configured" details to the client.
     console.error('sendOtpEmail: SMTP is not configured (missing SMTP_HOST/SMTP_USER/SMTP_PASS).');
     throw new Error('Mailer not configured');
   }
